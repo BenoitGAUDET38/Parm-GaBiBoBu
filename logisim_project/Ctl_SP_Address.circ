@@ -214,7 +214,7 @@ end TCL_Generic;
       <circ-port height="10" pin="560,260" width="10" x="335" y="75"/>
       <circ-port height="8" pin="230,120" width="8" x="46" y="96"/>
       <circ-port height="8" pin="230,200" width="8" x="46" y="56"/>
-      <circ-port height="8" pin="230,250" width="8" x="46" y="76"/>
+      <circ-port height="8" pin="450,250" width="8" x="46" y="76"/>
       <rect fill="none" height="80" stroke="#000000" stroke-width="2" width="270" x="60" y="50"/>
       <rect height="20" stroke="none" width="270" x="60" y="110"/>
       <rect height="3" stroke="none" width="10" x="330" y="59"/>
@@ -240,10 +240,6 @@ end TCL_Generic;
       <a name="label" val="Instruction"/>
       <a name="width" val="16"/>
     </comp>
-    <comp lib="0" loc="(230,250)" name="Pin">
-      <a name="label" val="Enable"/>
-    </comp>
-    <comp lib="0" loc="(230,270)" name="Constant"/>
     <comp lib="0" loc="(250,110)" name="Tunnel">
       <a name="facing" val="south"/>
       <a name="label" val="SP"/>
@@ -294,6 +290,10 @@ end TCL_Generic;
       <a name="fanout" val="1"/>
       <a name="incoming" val="16"/>
     </comp>
+    <comp lib="0" loc="(450,250)" name="Pin">
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(450,270)" name="Constant"/>
     <comp lib="0" loc="(450,640)" name="Bit Extender">
       <a name="in_width" val="7"/>
       <a name="out_width" val="32"/>
@@ -340,7 +340,7 @@ end TCL_Generic;
       <a name="label" val="NewSP"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(60,460)" name="Tunnel">
+    <comp lib="0" loc="(60,540)" name="Tunnel">
       <a name="facing" val="south"/>
       <a name="label" val="Instruction"/>
       <a name="width" val="16"/>
@@ -362,7 +362,7 @@ end TCL_Generic;
     <comp lib="3" loc="(220,640)" name="Comparator">
       <a name="width" val="1"/>
     </comp>
-    <comp lib="3" loc="(320,260)" name="Comparator">
+    <comp lib="3" loc="(540,260)" name="Comparator">
       <a name="width" val="1"/>
     </comp>
     <comp lib="3" loc="(550,620)" name="Adder">
@@ -381,12 +381,10 @@ end TCL_Generic;
     <wire from="(220,640)" to="(250,640)"/>
     <wire from="(230,120)" to="(250,120)"/>
     <wire from="(230,200)" to="(320,200)"/>
-    <wire from="(230,250)" to="(280,250)"/>
-    <wire from="(230,270)" to="(280,270)"/>
     <wire from="(250,110)" to="(250,120)"/>
     <wire from="(250,640)" to="(250,690)"/>
     <wire from="(250,690)" to="(260,690)"/>
-    <wire from="(260,530)" to="(260,620)"/>
+    <wire from="(260,550)" to="(260,620)"/>
     <wire from="(260,620)" to="(260,670)"/>
     <wire from="(260,620)" to="(280,620)"/>
     <wire from="(260,670)" to="(280,670)"/>
@@ -395,10 +393,11 @@ end TCL_Generic;
     <wire from="(300,620)" to="(380,620)"/>
     <wire from="(300,670)" to="(380,670)"/>
     <wire from="(320,110)" to="(320,200)"/>
-    <wire from="(320,260)" to="(560,260)"/>
     <wire from="(380,670)" to="(380,710)"/>
     <wire from="(390,640)" to="(410,640)"/>
     <wire from="(390,730)" to="(410,730)"/>
+    <wire from="(450,250)" to="(500,250)"/>
+    <wire from="(450,270)" to="(500,270)"/>
     <wire from="(450,640)" to="(470,640)"/>
     <wire from="(450,730)" to="(470,730)"/>
     <wire from="(470,630)" to="(470,640)"/>
@@ -411,11 +410,12 @@ end TCL_Generic;
     <wire from="(480,700)" to="(510,700)"/>
     <wire from="(520,120)" to="(520,130)"/>
     <wire from="(520,130)" to="(560,130)"/>
+    <wire from="(540,260)" to="(560,260)"/>
     <wire from="(550,620)" to="(590,620)"/>
     <wire from="(550,710)" to="(590,710)"/>
     <wire from="(590,690)" to="(590,710)"/>
-    <wire from="(60,460)" to="(60,530)"/>
-    <wire from="(60,530)" to="(260,530)"/>
-    <wire from="(60,530)" to="(60,560)"/>
+    <wire from="(60,540)" to="(60,550)"/>
+    <wire from="(60,550)" to="(260,550)"/>
+    <wire from="(60,550)" to="(60,560)"/>
   </circuit>
 </project>
