@@ -208,35 +208,201 @@ end TCL_Generic;
     <a name="clabel" val=""/>
     <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="east"/>
+    <comp lib="0" loc="(130,680)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="2"/>
+      <a name="bit5" val="2"/>
+      <a name="facing" val="south"/>
+      <a name="fanout" val="3"/>
+      <a name="incoming" val="6"/>
+    </comp>
+    <comp lib="0" loc="(130,680)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="opcode"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(130,870)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="opcode"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(140,770)" name="Constant">
+      <a name="value" val="0x0"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(210,60)" name="Constant">
+      <a name="facing" val="south"/>
+      <a name="value" val="0x0"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(230,760)" name="Tunnel">
+      <a name="label" val="S"/>
+    </comp>
+    <comp lib="0" loc="(230,880)" name="Tunnel">
+      <a name="label" val="DP"/>
+    </comp>
     <comp lib="0" loc="(240,140)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="Shift"/>
       <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(240,140)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="S"/>
     </comp>
     <comp lib="0" loc="(240,220)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="Data_Processing"/>
       <a name="output" val="true"/>
     </comp>
+    <comp lib="0" loc="(240,220)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="DP"/>
+    </comp>
     <comp lib="0" loc="(240,310)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="Load_Store"/>
       <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(240,310)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="LS"/>
     </comp>
     <comp lib="0" loc="(240,390)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="SP_Address"/>
       <a name="output" val="true"/>
     </comp>
+    <comp lib="0" loc="(240,390)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="SPA"/>
+    </comp>
     <comp lib="0" loc="(240,510)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="Conditional"/>
       <a name="output" val="true"/>
     </comp>
+    <comp lib="0" loc="(240,510)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="C"/>
+    </comp>
+    <comp lib="0" loc="(460,690)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="2"/>
+      <a name="bit5" val="2"/>
+      <a name="fanout" val="3"/>
+      <a name="incoming" val="6"/>
+    </comp>
+    <comp lib="0" loc="(460,690)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="opcode"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(460,820)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="2"/>
+      <a name="bit5" val="2"/>
+      <a name="fanout" val="3"/>
+      <a name="incoming" val="6"/>
+    </comp>
+    <comp lib="0" loc="(460,820)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="opcode"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(460,920)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="bit4" val="2"/>
+      <a name="bit5" val="2"/>
+      <a name="fanout" val="3"/>
+      <a name="incoming" val="6"/>
+    </comp>
+    <comp lib="0" loc="(460,920)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="opcode"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(500,660)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="facing" val="west"/>
+      <a name="incoming" val="4"/>
+    </comp>
+    <comp lib="0" loc="(500,790)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="facing" val="west"/>
+      <a name="incoming" val="4"/>
+    </comp>
+    <comp lib="0" loc="(500,890)" name="Splitter">
+      <a name="bit1" val="0"/>
+      <a name="bit2" val="1"/>
+      <a name="bit3" val="1"/>
+      <a name="facing" val="west"/>
+      <a name="incoming" val="4"/>
+    </comp>
+    <comp lib="0" loc="(510,700)" name="Constant">
+      <a name="facing" val="north"/>
+      <a name="value" val="0x9"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(510,830)" name="Constant">
+      <a name="facing" val="north"/>
+      <a name="value" val="0xb"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(510,930)" name="Constant">
+      <a name="facing" val="north"/>
+      <a name="value" val="0xd"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(600,670)" name="Tunnel">
+      <a name="label" val="LS"/>
+    </comp>
+    <comp lib="0" loc="(600,800)" name="Tunnel">
+      <a name="label" val="SPA"/>
+    </comp>
+    <comp lib="0" loc="(600,900)" name="Tunnel">
+      <a name="label" val="C"/>
+    </comp>
+    <comp lib="0" loc="(80,110)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="opcode"/>
+      <a name="width" val="6"/>
+    </comp>
     <comp lib="0" loc="(80,80)" name="Pin">
       <a name="facing" val="south"/>
       <a name="label" val="Opcode"/>
       <a name="width" val="6"/>
+    </comp>
+    <comp lib="0" loc="(80,910)" name="Constant">
+      <a name="value" val="0x10"/>
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(210,880)" name="Comparator">
+      <a name="width" val="6"/>
+    </comp>
+    <comp lib="3" loc="(220,760)" name="Comparator">
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="3" loc="(580,670)" name="Comparator">
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="3" loc="(580,800)" name="Comparator">
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="3" loc="(580,900)" name="Comparator">
+      <a name="width" val="4"/>
     </comp>
     <comp lib="8" loc="(413,150)" name="Text">
       <a name="text" val="Shift, add, sub, mov"/>
@@ -253,5 +419,27 @@ end TCL_Generic;
     <comp lib="8" loc="(505,230)" name="Text">
       <a name="text" val="Data Processing"/>
     </comp>
+    <wire from="(130,870)" to="(170,870)"/>
+    <wire from="(140,700)" to="(140,750)"/>
+    <wire from="(140,750)" to="(180,750)"/>
+    <wire from="(140,770)" to="(180,770)"/>
+    <wire from="(150,890)" to="(150,910)"/>
+    <wire from="(150,890)" to="(170,890)"/>
+    <wire from="(210,880)" to="(230,880)"/>
+    <wire from="(220,760)" to="(230,760)"/>
+    <wire from="(500,660)" to="(540,660)"/>
+    <wire from="(500,790)" to="(540,790)"/>
+    <wire from="(500,890)" to="(540,890)"/>
+    <wire from="(510,680)" to="(510,700)"/>
+    <wire from="(510,680)" to="(540,680)"/>
+    <wire from="(510,810)" to="(510,830)"/>
+    <wire from="(510,810)" to="(540,810)"/>
+    <wire from="(510,910)" to="(510,930)"/>
+    <wire from="(510,910)" to="(540,910)"/>
+    <wire from="(580,670)" to="(600,670)"/>
+    <wire from="(580,800)" to="(600,800)"/>
+    <wire from="(580,900)" to="(600,900)"/>
+    <wire from="(80,80)" to="(80,110)"/>
+    <wire from="(80,910)" to="(150,910)"/>
   </circuit>
 </project>
