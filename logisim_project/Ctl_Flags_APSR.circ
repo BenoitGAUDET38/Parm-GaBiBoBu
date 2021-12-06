@@ -208,25 +208,83 @@ end TCL_Generic;
     <a name="clabel" val=""/>
     <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="east"/>
-    <comp lib="0" loc="(210,100)" name="Pin">
-      <a name="label" val="Flags_In"/>
-      <a name="width" val="4"/>
-    </comp>
-    <comp lib="0" loc="(210,140)" name="Pin">
-      <a name="label" val="Clk"/>
-    </comp>
-    <comp lib="0" loc="(210,180)" name="Pin">
-      <a name="label" val="Rst"/>
-    </comp>
-    <comp lib="0" loc="(210,60)" name="Pin">
+    <comp lib="0" loc="(230,180)" name="Pin">
       <a name="label" val="Update_Mask"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="0" loc="(560,100)" name="Pin">
+    <comp lib="0" loc="(230,240)" name="Pin">
+      <a name="label" val="Flags_In"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(240,310)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="FLout"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(530,280)" name="Power">
+      <a name="facing" val="west"/>
+    </comp>
+    <comp lib="0" loc="(540,300)" name="Pin">
+      <a name="label" val="Rst"/>
+    </comp>
+    <comp lib="0" loc="(590,340)" name="Pin">
+      <a name="facing" val="north"/>
+      <a name="label" val="Clk"/>
+    </comp>
+    <comp lib="0" loc="(650,220)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="FLout"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(680,260)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="Flags_Out"/>
       <a name="output" val="true"/>
       <a name="width" val="4"/>
     </comp>
+    <comp lib="1" loc="(310,290)" name="NOT Gate">
+      <a name="size" val="20"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="1" loc="(360,210)" name="AND Gate">
+      <a name="size" val="30"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="1" loc="(360,300)" name="AND Gate">
+      <a name="size" val="30"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="1" loc="(430,260)" name="OR Gate">
+      <a name="size" val="30"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="4" loc="(560,230)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="4"/>
+    </comp>
+    <wire from="(230,180)" to="(260,180)"/>
+    <wire from="(230,240)" to="(310,240)"/>
+    <wire from="(240,310)" to="(330,310)"/>
+    <wire from="(260,180)" to="(260,290)"/>
+    <wire from="(260,180)" to="(310,180)"/>
+    <wire from="(260,290)" to="(290,290)"/>
+    <wire from="(310,180)" to="(310,200)"/>
+    <wire from="(310,200)" to="(330,200)"/>
+    <wire from="(310,220)" to="(310,240)"/>
+    <wire from="(310,220)" to="(330,220)"/>
+    <wire from="(310,290)" to="(330,290)"/>
+    <wire from="(360,210)" to="(380,210)"/>
+    <wire from="(360,300)" to="(380,300)"/>
+    <wire from="(380,210)" to="(380,250)"/>
+    <wire from="(380,250)" to="(400,250)"/>
+    <wire from="(380,270)" to="(380,300)"/>
+    <wire from="(380,270)" to="(400,270)"/>
+    <wire from="(430,260)" to="(560,260)"/>
+    <wire from="(530,280)" to="(560,280)"/>
+    <wire from="(540,300)" to="(560,300)"/>
+    <wire from="(590,320)" to="(590,340)"/>
+    <wire from="(620,260)" to="(650,260)"/>
+    <wire from="(650,220)" to="(650,260)"/>
+    <wire from="(650,260)" to="(680,260)"/>
   </circuit>
 </project>
