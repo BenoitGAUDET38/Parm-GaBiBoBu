@@ -425,7 +425,7 @@ end TCL_Generic;
       <a name="label" val="en"/>
     </comp>
     <comp lib="0" loc="(390,560)" name="Tunnel">
-      <a name="label" val="flags"/>
+      <a name="label" val="flags_update"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(390,940)" name="Tunnel">
@@ -676,7 +676,7 @@ end TCL_Generic;
     </comp>
     <comp lib="0" loc="(670,170)" name="Tunnel">
       <a name="facing" val="east"/>
-      <a name="label" val="flags"/>
+      <a name="label" val="flags_update"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(670,240)" name="Pin">
