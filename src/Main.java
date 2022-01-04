@@ -9,7 +9,8 @@ public class Main {
     private static final String[] op = new String[]{
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
             "ands", "eors", "adcs", "sbsc", "rors", "tst", "rsbs",
-            "cmn", "orrs", "muls", "bics", "mvns", "add", "str", "sub"};
+            "cmn", "orrs", "muls", "bics", "mvns", "add", "str", "sub",
+            "LBB0_"};
 
     public static void main(String[] args) throws IOException {
         readProgram();
@@ -20,19 +21,30 @@ public class Main {
 
     private static String[] cleanedLine(String x) {
         String[] tmp = x.strip().split("\\s+");
-        tmp[1] = tmp[1].replaceAll(",", "");
-        if (tmp.length > 2) {
-            tmp[2] = tmp[2].trim()
-                    .replaceAll("\\[sp, ", "")
-                    .replaceAll("]", "")
-                    .replaceAll(",", "");
-        }
-        if (tmp.length > 3) {
-            tmp[2] = tmp[2].replaceAll("\\[", "");
-            tmp[3] = tmp[3].trim()
-                    .replaceAll("\\[sp, ", "")
-                    .replaceAll("]", "")
-                    .replaceAll(",", "");
+        tmp[0] = tmp[0].trim();
+        if (tmp[0].contains("LBB")) {
+            // LABEL = ".LBB0_10:"
+            tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
+        } else if (tmp[0].equals("b")) {
+            // LABEL "b	.LBB0_12"
+            tmp[1] = tmp[1].trim().replaceAll(".LBB0_", "");
+        } else {
+            if (tmp.length > 1) {
+                tmp[1] = tmp[1].replaceAll(",", "");
+            }
+            if (tmp.length > 2) {
+                tmp[2] = tmp[2].trim()
+                        .replaceAll("\\[sp, ", "")
+                        .replaceAll("]", "")
+                        .replaceAll(",", "");
+            }
+            if (tmp.length > 3) {
+                tmp[2] = tmp[2].replaceAll("\\[", "");
+                tmp[3] = tmp[3].trim()
+                        .replaceAll("\\[sp, ", "")
+                        .replaceAll("]", "")
+                        .replaceAll(",", "");
+            }
         }
         System.out.println("Cleaned to " + Arrays.toString(tmp));
         return tmp;
@@ -41,12 +53,13 @@ public class Main {
     private static void readProgram() {
         try {
             FileReader reader = new FileReader("code_c/own_tests.s");
+
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             String line; // temp
             while ((line = bufferedReader.readLine()) != null) {
                 // Selecting & Filtering ASM lines
-                if (Arrays.stream(op).anyMatch(line.trim()::contains) && !(line.contains("."))) {
+                if (Arrays.stream(op).anyMatch(line.trim()::contains)) {
                     lines.add(line);
                 }
             }
@@ -68,8 +81,11 @@ public class Main {
     }
 
     private static void packetSwitching(String[] line) {
-        System.out.print(line[0] + " " + line[1] + " " + line[2]);
+        /*
+        System.out.print(line[0] + " " + line[1]);
+        System.out.println(line.length == 3 ? " " + line[2] : "");
         System.out.println(line.length == 4 ? " " + line[3] : "");
+         */
 
         switch (line[0].toLowerCase(Locale.ROOT)) {
             case "lsls":
@@ -146,7 +162,7 @@ public class Main {
                 break;
             case "rsbs":
                 System.out.println("Call RSB_IMMEDIATE with " + line[1] + " : " + line[2]);
-                RSB_IMMEDIATE(line[1], line[2], "#0");
+                RSB_IMMEDIATE(line[1], line[2]);
                 break;
             case "cmn":
                 System.out.println("Call CMN_REGISTER with " + line[1] + " : " + line[2]);
@@ -175,9 +191,27 @@ public class Main {
             case "ldr":
                 System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[3]);
                 LDR_IMMEDIATE(line[1], line[3]);
+                break;
+            case "b":
+                System.out.println("Call CONDITIONAL_BRANCH with " + line[1]);
+                CONDITIONAL_BRANCH(line[1]);
+                break;
             default:
+                if (line[0].matches("\\d+")) {
+                    System.out.println("Call UNCONDITIONAL_BRANCH with " + line[0]);
+                    UNCONDITIONAL_BRANCH(line[0]);
+                    break;
+                }
+                System.out.println("/!\\ NON TRAITE DANS LE SWITCH " + line[0]);
                 break;
         }
+    }
+
+    private static void CONDITIONAL_BRANCH(String s) {
+    }
+
+    private static void UNCONDITIONAL_BRANCH(String s) {
+
     }
 
     private static String binaryToHex(String binary) {
@@ -237,7 +271,7 @@ public class Main {
     // ASR (immediate) : Arithmetic Shift Right
     private static void ASR_IMMEDIATE(String rd, String rm, String imm5) {
         String binary = "00010";
-        binary += immToBinary(imm5, 5);;
+        binary += immToBinary(imm5, 5);
         binary += immToBinary(rm, 3);
         binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
@@ -253,7 +287,7 @@ public class Main {
     }
 
     // SUB (register) : Subtract Register
-    private static void SUB_REGISTER(String rd, String rn, String rm) {
+    private static void SUB_REGISTER(String rm, String rn, String rd) {
         String binary = "0001101";
         binary += immToBinary(rm, 3);
         binary += immToBinary(rn, 3);
@@ -369,7 +403,7 @@ public class Main {
     }
 
     //RSB (immediate) : Reverse Subtract from 0
-    private static void RSB_IMMEDIATE(String rd, String rn, String imm0) {
+    private static void RSB_IMMEDIATE(String rd, String rn) {
         String binary = "0100001001";
         binary += immToBinary(rn, 3);
         binary += immToBinary(rd, 3);
@@ -427,7 +461,7 @@ public class Main {
     //SUB (SP minus immediate) : Subtract Immediate from SP
     private static void SUB_MINUS_IMMEDIATE(String offset) {
         String binary = "101100001";
-        binary += immToBinaryDividedBy4(offset, 7);;
+        binary += immToBinaryDividedBy4(offset, 7);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
