@@ -59,7 +59,7 @@ public class Main {
     private static void writeResult(String buffer) {
         final boolean APPEND = false;
         try {
-            FileWriter writer = new FileWriter("peterSander.bin", APPEND);
+            FileWriter writer = new FileWriter("attendu.bin", APPEND);
             writer.write(buffer);
             writer.close();
         } catch (IOException e) {
@@ -356,7 +356,8 @@ public class Main {
     private static void MOV_IMMEDIATE(String rd, String imm8) {
 
         String binary = "00100";
-        binary += rd;
+        
+        binary += immToBinary(rd,3);
         binary += immToBinary(imm8, 8);
 
         String result = binaryToHex(binary);

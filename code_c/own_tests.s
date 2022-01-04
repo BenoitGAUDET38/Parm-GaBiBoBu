@@ -1,2 +1,2 @@
 run:
-	sub	sp, #84
+    movs	r0, #80
