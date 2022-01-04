@@ -13,8 +13,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         readProgram();
-        lines.forEach(x -> System.out.println(Arrays.toString(cleanedLine(x))));
-        // lines.forEach(x -> packetSwitching(cleanedLine(x)));
+        // lines.forEach(x -> System.out.println(Arrays.toString(cleanedLine(x))));
+        lines.forEach(x -> packetSwitching(cleanedLine(x)));
         writeResult(hexBuffer.toString());
     }
 
@@ -29,6 +29,7 @@ public class Main {
                     // .replaceAll("#", "")
                     .replaceAll(",", "");
         }
+        System.out.println("Cleaned to " + Arrays.toString(tmp));
         return tmp;
     }
 
@@ -65,69 +66,109 @@ public class Main {
         System.out.println(line[0] + " " + line[1] + " " + line[2]);
         switch (line[0].toLowerCase(Locale.ROOT)) {
             case "lsls":
-                if (line.length == 3) LSL_IMMEDIATE(line[0], line[1], line[2]);
-                else LSL_REGISTER(line[1], line[2]);
+                if (line.length == 3) {
+                    System.out.println("Call LSL_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    LSL_IMMEDIATE(line[0], line[1], line[2]);
+                } else {
+                    System.out.println("Call LSL_REGISTER with " + line[1] + " : " + line[2]);
+                    LSL_REGISTER(line[1], line[2]);
+                }
                 break;
             case "lsrs":
-                if (line.length == 3) LSR_IMMEDIATE(line[0], line[1], line[2]);
-                else LSR_REGISTER(line[1], line[2]);
+                if (line.length == 3) {
+                    System.out.println("Call LSR_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    LSR_IMMEDIATE(line[0], line[1], line[2]);
+                } else {
+                    System.out.println("Call LSL_REGISTER with " + line[1] + " : " + line[2]);
+                    LSR_REGISTER(line[1], line[2]);
+                }
                 break;
             case "asrs":
-                if (line.length == 3) ASR_IMMEDIATE(line[0], line[1], line[2]);
-                else ASR_REGISTER(line[1], line[2]);
+                if (line.length == 3) {
+                    System.out.println("Call ASR_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    ASR_IMMEDIATE(line[0], line[1], line[2]);
+                } else {
+                    System.out.println("Call ASR_REGISTER with " + line[1] + " : " + line[2]);
+                    ASR_REGISTER(line[1], line[2]);
+                }
                 break;
             case "add":
-                if (line[2].contains("#")) ADD_IMMEDIATE(line[0], line[1], line[2]);
-                else ADD_REGISTER(line[0], line[1], line[2]);
+                if (line[2].contains("#")) {
+                    System.out.println("Call ADD_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    ADD_IMMEDIATE(line[0], line[1], line[2]);
+                } else {
+                    System.out.println("Call ADD_REGISTER with " + line[0] + " : " + line[1] + " : " + line[2]);
+                    ADD_REGISTER(line[0], line[1], line[2]);
+                }
                 break;
             case "sub":
                 if (line[2].contains("#")) {
+                    System.out.println("Call SUB_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
                     SUB_IMMEDIATE(line[0], line[1], line[2]);
                 } else {
+                    System.out.println("Call SUB_REGISTER with " +  line[0] + " : " + line[1] + " : " + line[2]);
                     SUB_REGISTER(line[0], line[1], line[2]);
                 }
                 break;
             case "movs":
+                System.out.println("Call MOV_IMMEDIATE with " + line[1] + " : " + line[2]);
                 MOV_IMMEDIATE(line[1], line[2]);
                 break;
             case "cmp":
-                if (line[2].contains("#")) CMP_IMMEDIATE(line[1], line[2]);
-                else CMP_REGISTER(line[1], line[2]);
+                if (line[2].contains("#")) {
+                    System.out.println("Call CMP_IMMEDIATE with " + line[1] + " : " + line[2]);
+                    CMP_IMMEDIATE(line[1], line[2]);
+                } else {
+                    System.out.println("Call LSR_IMMEDIATE with " + line[1] + " : " + line[2]);
+                    CMP_REGISTER(line[1], line[2]);
+                }
                 break;
             case "ands":
+                System.out.println("Call AND_REGISTER with " + line[1] + " : " + line[2]);
                 AND_REGISTER(line[1], line[2]);
                 break;
             case "eors":
+                System.out.println("Call EOR_REGISTER with " + line[1] + " : " + line[2]);
                 EOR_REGISTER(line[1], line[2]);
                 break;
             case "adcs":
+                System.out.println("Call ADC_REGISTER with " + line[1] + " : " + line[2]);
                 ADC_REGISTER(line[1], line[2]);
                 break;
             case "sbcs":
+                System.out.println("Call SBC_REGISTER with " + line[1] + " : " + line[2]);
                 SBC_REGISTER(line[1], line[2]);
                 break;
             case "rors":
+                System.out.println("Call ROR_REGISTER with " + line[1] + " : " + line[2]);
                 ROR_REGISTER(line[1], line[2]);
                 break;
             case "tst":
+                System.out.println("Call TST_REGISTER with " + line[1] + " : " + line[2]);
                 TST_REGISTER(line[1], line[2]);
                 break;
             case "rsbs":
+                System.out.println("Call RSB_IMMEDIATE with " + line[1] + " : " + line[2]);
                 RSB_IMMEDIATE(line[1], line[2], "#0");
                 break;
             case "cmn":
+                System.out.println("Call CMN_REGISTER with " + line[1] + " : " + line[2]);
                 CMN_REGISTER(line[1], line[2]);
                 break;
             case "orrs":
+                System.out.println("Call ORR_REGISTER with " + line[1] + " : " + line[2]);
                 ORR_REGISTER(line[1], line[2]);
                 break;
             case "muls":
+                System.out.println("Call NUL with " + line[0] + " : " + line[1] + " : " + line[2]);
                 MUL(line[0], line[1], line[2]);
                 break;
             case "bics":
+                System.out.println("Call BIC_REGISTER with " + line[1] + " : " + line[2]);
                 BIC_REGISTER(line[1], line[2]);
                 break;
             case "mvns":
+                System.out.println("Call MVN_REGISTER with " + line[1] + " : " + line[2]);
                 MVN_REGISTER(line[1], line[2]);
                 break;
             default:
@@ -261,7 +302,7 @@ public class Main {
         hexBuffer.append(result).append(" "); // save result in buffer
     }
 
-    // SUB (immediate) : Substract 3-bit immediate
+    // SUB (immediate) : Subtract 3-bit immediate
     private static void SUB_IMMEDIATE(String rd, String rn, String imm3) {
 
         String binary = "0001111";
