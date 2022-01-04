@@ -188,8 +188,8 @@ public class Main {
                 MVN_REGISTER(line[1], line[2]);
                 break;
             case "str":
-                System.out.println("Call STR_IMMEDIATE with " + line[1] + " : " + line[2] + " : " + line[3]);
-                STR_IMMEDIATE(line[1], line[2], line[3]);
+                System.out.println("Call STR_IMMEDIATE with " + line[1] + " : " + line[3]);
+                STR_IMMEDIATE(line[1], line[3]);
                 break;
             case "ldr":
                 System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[2] + " : " + line[3]);
@@ -356,7 +356,7 @@ public class Main {
     private static void MOV_IMMEDIATE(String rd, String imm8) {
 
         String binary = "00100";
-        
+
         binary += immToBinary(rd,3);
         binary += immToBinary(imm8, 8);
 
@@ -637,11 +637,19 @@ public class Main {
         hexBuffer.append(result).append(" "); // save result in buffer
     }
 
-    private static String LDR_IMMEDIATE(String s, String s1, String s2) {
-        return "";
+    private static void LDR_IMMEDIATE(String s, String s1, String s2) {
     }
 
-    private static String STR_IMMEDIATE(String s, String s1, String s2) {
-        return "";
+    private static void STR_IMMEDIATE(String rm, String imm8) {
+        String binary = "10010";
+        binary += immToBinary(rm, 3);
+        binary += immToBinaryDividedBy4(imm8, 8);
+
+        String result = binaryToHex(binary);
+
+        System.out.println("BIC (Register) Binary " + binary);
+        System.out.println("BIC (Register) Hex " + result);
+
+        hexBuffer.append(result).append(" "); // save result in buffer
     }
 }
