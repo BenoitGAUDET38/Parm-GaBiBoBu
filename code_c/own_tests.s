@@ -1,2 +1,2 @@
 run:
-    add sp, #5
+    adds	r0, r0, #1
