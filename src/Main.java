@@ -22,11 +22,16 @@ public class Main {
         String[] tmp = x.strip().split("\\s+");
         tmp[1] = tmp[1].replaceAll(",", "");
         if (tmp.length > 2) {
-            tmp[2] = tmp[2]
-                    .trim()
+            tmp[2] = tmp[2].trim()
                     .replaceAll("\\[sp, ", "")
                     .replaceAll("]", "")
-                    // .replaceAll("#", "")
+                    .replaceAll(",", "");
+        }
+        if (tmp.length > 3) {
+            tmp[2] = tmp[2].replaceAll("\\[", "");
+            tmp[3] = tmp[3].trim()
+                    .replaceAll("\\[sp, ", "")
+                    .replaceAll("]", "")
                     .replaceAll(",", "");
         }
         System.out.println("Cleaned to " + Arrays.toString(tmp));
@@ -63,7 +68,9 @@ public class Main {
     }
 
     private static void packetSwitching(String[] line) {
-        System.out.println(line[0] + " " + line[1] + " " + line[2]);
+        System.out.print(line[0] + " " + line[1] + " " + line[2]);
+        System.out.println(line.length == 4 ? " " + line[3] : "");
+
         switch (line[0].toLowerCase(Locale.ROOT)) {
             case "lsls":
                 if (line.length == 3) {
@@ -181,12 +188,12 @@ public class Main {
                 MVN_REGISTER(line[1], line[2]);
                 break;
             case "str":
-                System.out.println("Call STR_IMMEDIATE with " + line[1] + " : " + line[2]);
-                STR_IMMEDIATE(line[1], line[2]);
-                break:
+                System.out.println("Call STR_IMMEDIATE with " + line[1] + " : " + line[2] + " : " + line[3]);
+                STR_IMMEDIATE(line[1], line[2], line[3]);
+                break;
             case "ldr":
-                System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[2]);
-                LDR_IMMEDIATE(line[1], line[2]);
+                System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[2] + " : " + line[3]);
+                LDR_IMMEDIATE(line[1], line[2], line[3]);
             default:
                 break;
         }
@@ -627,5 +634,13 @@ public class Main {
         System.out.println("SUB (Minus Immediate) Hex " + result);
 
         hexBuffer.append(result).append(" "); // save result in buffer
+    }
+
+    private static String LDR_IMMEDIATE(String s, String s1, String s2) {
+        return "";
+    }
+
+    private static String STR_IMMEDIATE(String s, String s1, String s2) {
+        return "";
     }
 }
