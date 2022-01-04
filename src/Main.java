@@ -188,7 +188,7 @@ public class Main {
                 break;
             case "rsbs":
                 System.out.println("Call RSB_IMMEDIATE with " + line[1] + " : " + line[2]);
-                RSB_IMMEDIATE(line[1], line[2], "#0");
+                RSB_IMMEDIATE(line[1], line[2]);
                 break;
             case "cmn":
                 System.out.println("Call CMN_REGISTER with " + line[1] + " : " + line[2]);
@@ -226,8 +226,9 @@ public class Main {
                 if (line[0].matches("\\d+")) {
                     System.out.println("Call UNCONDITIONAL_BRANCH with " + line[0]);
                     UNCONDITIONAL_BRANCH(line[0]);
+                    break;
                 }
-                System.out.println("NON TRAITE DANS LE SWITCH " + line[0]);
+                System.out.println("/!\\ NON TRAITE DANS LE SWITCH " + line[0]);
                 break;
         }
     }
@@ -235,7 +236,9 @@ public class Main {
     private static void CONDITIONAL_BRANCH(String s) {
     }
 
-    private static void UNCONDITIONAL_BRANCH(String s) {}
+    private static void UNCONDITIONAL_BRANCH(String s) {
+
+    }
 
     private static String binaryToHex(String binary) {
 
@@ -294,7 +297,7 @@ public class Main {
     // ASR (immediate) : Arithmetic Shift Right
     private static void ASR_IMMEDIATE(String rd, String rm, String imm5) {
         String binary = "00010";
-        binary += immToBinary(imm5, 5);;
+        binary += immToBinary(imm5, 5);
         binary += immToBinary(rm, 3);
         binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
@@ -426,7 +429,7 @@ public class Main {
     }
 
     //RSB (immediate) : Reverse Subtract from 0
-    private static void RSB_IMMEDIATE(String rd, String rn, String imm0) {
+    private static void RSB_IMMEDIATE(String rd, String rn) {
         String binary = "0100001001";
         binary += immToBinary(rn, 3);
         binary += immToBinary(rd, 3);
@@ -484,7 +487,7 @@ public class Main {
     //SUB (SP minus immediate) : Subtract Immediate from SP
     private static void SUB_MINUS_IMMEDIATE(String offset) {
         String binary = "101100001";
-        binary += immToBinaryDividedBy4(offset, 7);;
+        binary += immToBinaryDividedBy4(offset, 7);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
