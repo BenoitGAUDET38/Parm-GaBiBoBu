@@ -74,7 +74,7 @@ public class Main {
         switch (line[0].toLowerCase(Locale.ROOT)) {
             case "lsls":
                 if (line.length == 3) {
-                    System.out.println("Call LSL_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    System.out.println("Call LSL_IMMEDIATE with " + line[0] + " : " + line[1] + " : " + line[2]);
                     LSL_IMMEDIATE(line[0], line[1], line[2]);
                 } else {
                     System.out.println("Call LSL_REGISTER with " + line[1] + " : " + line[2]);
@@ -83,7 +83,7 @@ public class Main {
                 break;
             case "lsrs":
                 if (line.length == 3) {
-                    System.out.println("Call LSR_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    System.out.println("Call LSR_IMMEDIATE with " + line[0] + " : " + line[1] + " : " + line[2]);
                     LSR_IMMEDIATE(line[0], line[1], line[2]);
                 } else {
                     System.out.println("Call LSL_REGISTER with " + line[1] + " : " + line[2]);
@@ -92,7 +92,7 @@ public class Main {
                 break;
             case "asrs":
                 if (line.length == 3) {
-                    System.out.println("Call ASR_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    System.out.println("Call ASR_IMMEDIATE with " + line[0] + " : " + line[1] + " : " + line[2]);
                     ASR_IMMEDIATE(line[0], line[1], line[2]);
                 } else {
                     System.out.println("Call ASR_REGISTER with " + line[1] + " : " + line[2]);
@@ -101,7 +101,7 @@ public class Main {
                 break;
             case "add":
                 if (line[2].contains("#")) {
-                    System.out.println("Call ADD_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    System.out.println("Call ADD_IMMEDIATE with " + line[0] + " : " + line[1] + " : " + line[2]);
                     ADD_IMMEDIATE(line[0], line[1], line[2]);
                 } else {
                     System.out.println("Call ADD_REGISTER with " + line[0] + " : " + line[1] + " : " + line[2]);
@@ -109,20 +109,19 @@ public class Main {
                 }
                 break;
             case "sub":
-                if  (line[1].contains("sp")) {
-                    if (line[2].contains("#")){
+                if (line[1].contains("sp")) {
+                    if (line[2].contains("#")) {
                         System.out.println("Call SUB_MINUS_IMMEDIATE with " + line[2]);
                         SUB_MINUS_IMMEDIATE(line[2]);
                     } else {
                         System.out.println("Call SUB_MINUS_IMMEDIATE with " + line[3]);
                         SUB_MINUS_IMMEDIATE(line[3]);
                     }
-                }
-                else if (line[2].contains("#")) {
-                    System.out.println("Call SUB_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                } else if (line[2].contains("#")) {
+                    System.out.println("Call SUB_IMMEDIATE with " + line[0] + " : " + line[1] + " : " + line[2]);
                     SUB_IMMEDIATE(line[0], line[1], line[2]);
                 } else {
-                    System.out.println("Call SUB_REGISTER with " +  line[0] + " : " + line[1] + " : " + line[2]);
+                    System.out.println("Call SUB_REGISTER with " + line[0] + " : " + line[1] + " : " + line[2]);
                     SUB_REGISTER(line[0], line[1], line[2]);
                 }
                 break;
@@ -192,8 +191,8 @@ public class Main {
                 STR_IMMEDIATE(line[1], line[3]);
                 break;
             case "ldr":
-                System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[2] + " : " + line[3]);
-                LDR_IMMEDIATE(line[1], line[2], line[3]);
+                System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[3]);
+                LDR_IMMEDIATE(line[1], line[3]);
             default:
                 break;
         }
@@ -230,26 +229,18 @@ public class Main {
         String immWithoutHashtag = imm.substring(1);
         int immInt = Integer.parseInt(immWithoutHashtag);
 
-        int immIntDividedBy4 = immInt/4;
+        int immIntDividedBy4 = immInt / 4;
 
-        return immToBinary("#" + immIntDividedBy4,bits);
+        return immToBinary("#" + immIntDividedBy4, bits);
     }
 
     // LSL (immediate) : Logical Shift Left
     private static void LSL_IMMEDIATE(String rd, String rm, String imm5) {
-
         String binary = "00000";
-        String imm5Binary = immToBinary(imm5, 5);
-        binary += imm5Binary;
+        binary += immToBinary(imm5, 5);
         binary += rm;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("LSL (Immediate) Binary : " + binary);
-        System.out.println("LSL (Immediate) Hex : " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // LSR (immediate) : Logical Shift Right
@@ -260,396 +251,219 @@ public class Main {
         binary += imm5Binary;
         binary += rm;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("LSR (Immediate) Binary : " + binary);
-        System.out.println("LSR (Immediate) Hex : " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // ASR (immediate) : Arithmetic Shift Right
     private static void ASR_IMMEDIATE(String rd, String rm, String imm5) {
-
         String binary = "00010";
-        String imm5Binary = immToBinary(imm5, 5);
-        binary += imm5Binary;
+        binary += immToBinary(imm5, 5);;
         binary += rm;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("ASR (Immediate) Binary : " + binary);
-        System.out.println("ASR (Immediate) Hex : " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // ADD (register) : Add Register
     private static void ADD_REGISTER(String rd, String rn, String rm) {
-
         String binary = "0001100";
         binary += rm;
         binary += rn;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("ADD (Register) Binary : " + binary);
-        System.out.println("ADD (Register) Hex : " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // SUB (register) : Subtract Register
     private static void SUB_REGISTER(String rd, String rn, String rm) {
-
         String binary = "0001101";
         binary += rm;
         binary += rn;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("SUB (Register) Binary : " + binary);
-        System.out.println("SUB (Register) Hex : " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // ADD (immediate) : Add 3-bit Immediate
     private static void ADD_IMMEDIATE(String rd, String rn, String imm3) {
-
         String binary = "0001110";
         String imm3Binary = immToBinary(imm3, 3);
         binary += imm3Binary;
         binary += rn;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("ADD (Immediate) Binary : " + binary);
-        System.out.println("ADD (Immediate) Hex : " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // SUB (immediate) : Subtract 3-bit immediate
     private static void SUB_IMMEDIATE(String rd, String rn, String imm3) {
-
         String binary = "0001111";
         String imm3Binary = immToBinary(imm3, 3);
         binary += imm3Binary;
         binary += rn;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("SUB (Immediate) Binary : " + binary);
-        System.out.println("SUB (Immediate) Hex : " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // MOV (immediate) : Move
     private static void MOV_IMMEDIATE(String rd, String imm8) {
-
         String binary = "00100";
-
-        binary += immToBinary(rd,3);
+        binary += immToBinary(rd, 3);
         binary += immToBinary(imm8, 8);
-
-        String result = binaryToHex(binary);
-
-        System.out.println("MOV (Immediate) Binary " + binary);
-        System.out.println("MOV (Immediate) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // CMP (immediate) : Compare
     private static void CMP_IMMEDIATE(String rd, String imm8) {
-
         String binary = "00101";
         binary += rd;
         binary += immToBinary(imm8, 8);
-
-        String result = binaryToHex(binary);
-
-        System.out.println("CMP (Immediate) Binary " + binary);
-        System.out.println("CMP (Immediate) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // AND (register) : Bitwise AND
     private static void AND_REGISTER(String rdn, String rm) {
-
         String binary = "0100000000";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("AND (Register) Binary " + binary);
-        System.out.println("AND (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // EOR (register) : Exclusive OR
     private static void EOR_REGISTER(String rdn, String rm) {
-
         String binary = "0100000001";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("EOR (Register) Binary " + binary);
-        System.out.println("EOR (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // LSL (register) : Logical Shift Left
     private static void LSL_REGISTER(String rdn, String rm) {
-
         String binary = "0100000010";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("LSL (Register) Binary " + binary);
-        System.out.println("LSL (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // LSR (register) : Logical Shift Right
     private static void LSR_REGISTER(String rdn, String rm) {
-
         String binary = "0100000011";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("LSR (Register) Binary " + binary);
-        System.out.println("LSR (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // ASR (register) : Arithmetic Shift Right
     private static void ASR_REGISTER(String rdn, String rm) {
-
         String binary = "0100000100";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("ASR (Register) Binary " + binary);
-        System.out.println("ASR (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //ADC (register) : Add with Carry
     private static void ADC_REGISTER(String rdn, String rm) {
-
         String binary = "0100000101";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("ADC (Register) Binary " + binary);
-        System.out.println("ADC (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binaryToHex(binary))).append(" "); // save result in buffer
     }
 
     //SBC (register) : Substract with Carry
     private static void SBC_REGISTER(String rdn, String rm) {
-
         String binary = "0100000110";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("SBC (Register) Binary " + binary);
-        System.out.println("SBC (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //ROR (register) : Rotate Right
     private static void ROR_REGISTER(String rdn, String rm) {
-
         String binary = "0100000111";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("ROR (Register) Binary " + binary);
-        System.out.println("ROR (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //TST (register) : Set flags on bitwise AND
     private static void TST_REGISTER(String rn, String rm) {
-
         String binary = "0100001000";
         binary += rm;
         binary += rn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("TST (Register) Binary " + binary);
-        System.out.println("TST (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //RSB (immediate) : Reverse Subtract from 0
     private static void RSB_IMMEDIATE(String rd, String rn, String imm0) {
-
         String binary = "0100001001";
         binary += rn;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("RSB (Immediate) Binary " + binary);
-        System.out.println("RSB (Immediate) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //CMP (register) : Compare Registers
     private static void CMP_REGISTER(String rn, String rm) {
-
         String binary = "0100001010";
         binary += rm;
         binary += rn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("CMP (Register) Binary " + binary);
-        System.out.println("CMP (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //CMN (register) : Compare Negative
     private static void CMN_REGISTER(String rn, String rm) {
-
         String binary = "0100001011";
         binary += rm;
         binary += rn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("CMN (Register) Binary " + binary);
-        System.out.println("CMN (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //ORR (register) : Logical OR
     private static void ORR_REGISTER(String rdn, String rm) {
-
         String binary = "0100001100";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("ORR (Register) Binary " + binary);
-        System.out.println("ORR (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //MUL : Multiply Two Registers
     private static void MUL(String rdm1, String rn, String rdm2) {
-
         String binary = "0100001101";
         binary += rn;
         binary += rdm1;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("MUL Binary " + binary);
-        System.out.println("MUL Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //BIC (register) : Bit Clear
     private static void BIC_REGISTER(String rdn, String rm) {
-
         String binary = "0100001110";
         binary += rm;
         binary += rdn;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("BIC (Register) Binary " + binary);
-        System.out.println("BIC (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //MVN (register) : Bitwise NOT
     private static void MVN_REGISTER(String rd, String rm) {
-
         String binary = "0100001111";
         binary += rm;
         binary += rd;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("MVN (Register) Binary " + binary);
-        System.out.println("MVN (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //SUB (SP minus immediate) : Subtract Immediate from SP
-    private static void SUB_MINUS_IMMEDIATE(String offset){
+    private static void SUB_MINUS_IMMEDIATE(String offset) {
         String binary = "101100001";
         String imm7Binary = immToBinaryDividedBy4(offset, 7);
         binary += imm7Binary;
-
-        String result = binaryToHex(binary);
-
-        System.out.println("SUB (Minus Immediate) Binary " + binary);
-        System.out.println("SUB (Minus Immediate) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
-    private static void LDR_IMMEDIATE(String s, String s1, String s2) {
-    }
-
-    private static void STR_IMMEDIATE(String rm, String imm8) {
-        String binary = "10010";
-        binary += immToBinary(rm, 3);
+    private static void LDR_IMMEDIATE(String rt, String imm8) {
+        String binary = "10011";
+        binary += immToBinary(rt, 3);
         binary += immToBinaryDividedBy4(imm8, 8);
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
+    }
 
-        String result = binaryToHex(binary);
-
-        System.out.println("BIC (Register) Binary " + binary);
-        System.out.println("BIC (Register) Hex " + result);
-
-        hexBuffer.append(result).append(" "); // save result in buffer
+    private static void STR_IMMEDIATE(String rt, String imm8) {
+        String binary = "10010";
+        binary += immToBinary(rt, 3);
+        binary += immToBinaryDividedBy4(imm8, 8);
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 }
