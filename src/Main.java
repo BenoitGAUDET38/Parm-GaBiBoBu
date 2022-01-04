@@ -40,7 +40,7 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/own_tests.s");
+            FileReader reader = new FileReader("code_c/tty.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             String line; // temp
@@ -59,7 +59,7 @@ public class Main {
     private static void writeResult(String buffer) {
         final boolean APPEND = false;
         try {
-            FileWriter writer = new FileWriter("attendu.bin", APPEND);
+            FileWriter writer = new FileWriter("result.bin", APPEND);
             writer.write(buffer);
             writer.close();
         } catch (IOException e) {
