@@ -111,9 +111,10 @@ public class Main {
                 }else if (line[2].contains("#")) {
                     System.out.println("Call ADD_IMMEDIATE with " + line[0] + " : " + line[1] + " : " + line[2]);
                     ADD_IMMEDIATE(line[0], line[1], line[2]);
+
                 } else {
-                    System.out.println("Call ADD_REGISTER with " + line[0] + " : " + line[1] + " : " + line[2]);
-                    ADD_REGISTER(line[0], line[1], line[2]);
+                    System.out.println("Call ADD_REGISTER with " + line[1] + " : " + line[2] + " : " + line[3]);
+                    ADD_REGISTER(line[1], line[2], line[3]);
                 }
                 break;
             case "sub":
@@ -253,10 +254,8 @@ public class Main {
 
     // LSR (immediate) : Logical Shift Right
     private static void LSR_IMMEDIATE(String rd, String rm, String imm5) {
-
         String binary = "00001";
-        String imm5Binary = immToBinary(imm5, 5);
-        binary += imm5Binary;
+        binary += immToBinary(imm5, 5);
         binary += immToBinary(rm, 3);
         binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
@@ -272,7 +271,7 @@ public class Main {
     }
 
     // ADD (register) : Add Register
-    private static void ADD_REGISTER(String rd, String rn, String rm) {
+    private static void ADD_REGISTER(String rm, String rn, String rd) {
         String binary = "0001100";
         binary += immToBinary(rm, 3);
         binary += immToBinary(rn, 3);
@@ -286,14 +285,14 @@ public class Main {
         binary += immToBinary(rm, 3);
         binary += immToBinary(rn, 3);
         binary += immToBinary(rd, 3);
+
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // ADD (immediate) : Add 3-bit Immediate
     private static void ADD_IMMEDIATE(String rd, String rn, String imm3) {
         String binary = "0001110";
-        String imm3Binary = immToBinary(imm3, 3);
-        binary += imm3Binary;
+        binary += immToBinary(imm3, 3);
         binary += immToBinary(rn, 3);
         binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
@@ -302,8 +301,7 @@ public class Main {
     // SUB (immediate) : Subtract 3-bit immediate
     private static void SUB_IMMEDIATE(String rd, String rn, String imm3) {
         String binary = "0001111";
-        String imm3Binary = immToBinary(imm3, 3);
-        binary += imm3Binary;
+        binary += immToBinary(imm3, 3);
         binary += immToBinary(rn, 3);
         binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
@@ -456,16 +454,14 @@ public class Main {
     //SUB (SP minus immediate) : Subtract Immediate from SP
     private static void SUB_MINUS_IMMEDIATE(String offset) {
         String binary = "101100001";
-        String imm7Binary = immToBinaryDividedBy4(offset, 7);
-        binary += imm7Binary;
+        binary += immToBinaryDividedBy4(offset, 7);;
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //ADD (SP minus immediate) : Add Immediate from SP
     private static void ADD_MINUS_IMMEDIATE(String offset) {
         String binary = "101100000";
-        String imm7Binary = immToBinaryDividedBy4(offset, 7);
-        binary += imm7Binary;
+        binary += immToBinaryDividedBy4(offset, 7);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
