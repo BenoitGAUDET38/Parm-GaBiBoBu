@@ -115,9 +115,18 @@ public class Main {
                 }
                 break;
             case "add":
-                if (line[2].contains("#")) {
-                    System.out.println("Call ADD_IMMEDIATE with " + line[1] + " : " + line[2] + " : " + line[3]);
-                    ADD_IMMEDIATE(line[1], line[2], line[3]);
+                if (line[1].contains("sp")){
+                    if (line[2].contains("#")) {
+                        System.out.println("Call ADD_MINUS_IMMEDIATE with " + line[2]);
+                        ADD_MINUS_IMMEDIATE(line[2]);
+                    } else {
+                        System.out.println("Call ADD_MINUS_IMMEDIATE with " + line[3]);
+                        ADD_MINUS_IMMEDIATE(line[3]);
+                    }
+                }else if (line[2].contains("#")) {
+                    System.out.println("Call ADD_IMMEDIATE with " + line[0] + " : " + line[1] + " : " + line[2]);
+                    ADD_IMMEDIATE(line[0], line[1], line[2]);
+
                 } else {
                     System.out.println("Call ADD_REGISTER with " + line[1] + " : " + line[2] + " : " + line[3]);
                     ADD_REGISTER(line[1], line[2], line[3]);
@@ -190,8 +199,8 @@ public class Main {
                 ORR_REGISTER(line[1], line[2]);
                 break;
             case "muls":
-                System.out.println("Call NUL with " + line[0] + " : " + line[1] + " : " + line[2]);
-                MUL(line[0], line[1], line[2]);
+                System.out.println("Call NUL with " + line[0] + " : " + line[1]);
+                MUL(line[0], line[1]);
                 break;
             case "bics":
                 System.out.println("Call BIC_REGISTER with " + line[1] + " : " + line[2]);
@@ -254,17 +263,17 @@ public class Main {
     private static void LSL_IMMEDIATE(String rd, String rm, String imm5) {
         String binary = "00000";
         binary += immToBinary(imm5, 5);
-        binary += rm;
-        binary += rd;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // LSR (immediate) : Logical Shift Right
     private static void LSR_IMMEDIATE(String rd, String rm, String imm5) {
         String binary = "00001";
-        binary += immToBinary(imm5, 5);;
-        binary += rm;
-        binary += rd;
+        binary += immToBinary(imm5, 5);
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
@@ -272,8 +281,8 @@ public class Main {
     private static void ASR_IMMEDIATE(String rd, String rm, String imm5) {
         String binary = "00010";
         binary += immToBinary(imm5, 5);;
-        binary += rm;
-        binary += rd;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
@@ -281,7 +290,8 @@ public class Main {
     private static void ADD_REGISTER(String rm, String rn, String rd) {
         String binary = "0001100";
         binary += immToBinary(rm, 3);
-        binary += immToBinaryDividedBy4(rd, 3);
+        binary += immToBinary(rn, 3);
+        binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
@@ -289,16 +299,18 @@ public class Main {
     private static void SUB_REGISTER(String rm, String rn, String rd) {
         String binary = "0001101";
         binary += immToBinary(rm, 3);
-        binary += immToBinaryDividedBy4(rd, 3);
+        binary += immToBinary(rn, 3);
+        binary += immToBinary(rd, 3);
+
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // ADD (immediate) : Add 3-bit Immediate
     private static void ADD_IMMEDIATE(String rd, String rn, String imm3) {
         String binary = "0001110";
-        binary += immToBinary(imm3, 3);;
-        binary += rn;
-        binary += rd;
+        binary += immToBinary(imm3, 3);
+        binary += immToBinary(rn, 3);
+        binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
@@ -306,8 +318,8 @@ public class Main {
     private static void SUB_IMMEDIATE(String rd, String rn, String imm3) {
         String binary = "0001111";
         binary += immToBinary(imm3, 3);
-        binary += rn;
-        binary += rd;
+        binary += immToBinary(rn, 3);
+        binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
@@ -322,7 +334,7 @@ public class Main {
     // CMP (immediate) : Compare
     private static void CMP_IMMEDIATE(String rd, String imm8) {
         String binary = "00101";
-        binary += rd;
+        binary += immToBinary(rd, 3);
         binary += immToBinary(imm8, 8);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
@@ -330,128 +342,128 @@ public class Main {
     // AND (register) : Bitwise AND
     private static void AND_REGISTER(String rdn, String rm) {
         String binary = "0100000000";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // EOR (register) : Exclusive OR
     private static void EOR_REGISTER(String rdn, String rm) {
         String binary = "0100000001";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // LSL (register) : Logical Shift Left
     private static void LSL_REGISTER(String rdn, String rm) {
         String binary = "0100000010";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // LSR (register) : Logical Shift Right
     private static void LSR_REGISTER(String rdn, String rm) {
         String binary = "0100000011";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // ASR (register) : Arithmetic Shift Right
     private static void ASR_REGISTER(String rdn, String rm) {
         String binary = "0100000100";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //ADC (register) : Add with Carry
     private static void ADC_REGISTER(String rdn, String rm) {
         String binary = "0100000101";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binaryToHex(binary))).append(" "); // save result in buffer
     }
 
     //SBC (register) : Substract with Carry
     private static void SBC_REGISTER(String rdn, String rm) {
         String binary = "0100000110";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //ROR (register) : Rotate Right
     private static void ROR_REGISTER(String rdn, String rm) {
         String binary = "0100000111";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //TST (register) : Set flags on bitwise AND
     private static void TST_REGISTER(String rn, String rm) {
         String binary = "0100001000";
-        binary += rm;
-        binary += rn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //RSB (immediate) : Reverse Subtract from 0
     private static void RSB_IMMEDIATE(String rd, String rn, String imm0) {
         String binary = "0100001001";
-        binary += rn;
-        binary += rd;
+        binary += immToBinary(rn, 3);
+        binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //CMP (register) : Compare Registers
     private static void CMP_REGISTER(String rn, String rm) {
         String binary = "0100001010";
-        binary += rm;
-        binary += rn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //CMN (register) : Compare Negative
     private static void CMN_REGISTER(String rn, String rm) {
         String binary = "0100001011";
-        binary += rm;
-        binary += rn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //ORR (register) : Logical OR
     private static void ORR_REGISTER(String rdn, String rm) {
         String binary = "0100001100";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //MUL : Multiply Two Registers
-    private static void MUL(String rdm1, String rn, String rdm2) {
+    private static void MUL(String rdm, String rn) {
         String binary = "0100001101";
-        binary += rn;
-        binary += rdm1;
+        binary += immToBinary(rn, 3);
+        binary += immToBinary(rdm, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //BIC (register) : Bit Clear
     private static void BIC_REGISTER(String rdn, String rm) {
         String binary = "0100001110";
-        binary += rm;
-        binary += rdn;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rdn, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     //MVN (register) : Bitwise NOT
     private static void MVN_REGISTER(String rd, String rm) {
         String binary = "0100001111";
-        binary += rm;
-        binary += rd;
+        binary += immToBinary(rm, 3);
+        binary += immToBinary(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
@@ -459,6 +471,13 @@ public class Main {
     private static void SUB_MINUS_IMMEDIATE(String offset) {
         String binary = "101100001";
         binary += immToBinaryDividedBy4(offset, 7);;
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
+    }
+
+    //ADD (SP minus immediate) : Add Immediate from SP
+    private static void ADD_MINUS_IMMEDIATE(String offset) {
+        String binary = "101100000";
+        binary += immToBinaryDividedBy4(offset, 7);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
