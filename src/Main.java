@@ -5,7 +5,7 @@ import java.util.Locale;
 
 public class Main {
     private static final ArrayList<String> lines = new ArrayList<>();
-    private static final StringBuilder hexBuffer = new StringBuilder(); // IO time reducing
+    private static final StringBuilder hexBuffer = new StringBuilder("v2.0 raw\n"); // IO time reducing
     private static final String[] op = new String[]{
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
             "ands", "eors", "adcs", "sbsc", "rors", "tst", "rsbs",
