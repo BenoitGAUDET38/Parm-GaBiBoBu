@@ -40,7 +40,7 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/own_tests.s");
+            FileReader reader = new FileReader("code_c/tty.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             String line; // temp
@@ -356,7 +356,7 @@ public class Main {
     private static void MOV_IMMEDIATE(String rd, String imm8) {
 
         String binary = "00100";
-        binary += rd;
+        binary += rd.substring(1);
         binary += immToBinary(imm8, 8);
 
         String result = binaryToHex(binary);
