@@ -40,7 +40,7 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/tty.s");
+            FileReader reader = new FileReader("code_c/own_tests.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             String line; // temp
