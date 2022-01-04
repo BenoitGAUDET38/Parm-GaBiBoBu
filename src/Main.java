@@ -180,6 +180,13 @@ public class Main {
                 System.out.println("Call MVN_REGISTER with " + line[1] + " : " + line[2]);
                 MVN_REGISTER(line[1], line[2]);
                 break;
+            case "str":
+                System.out.println("Call STR_IMMEDIATE with " + line[1] + " : " + line[2]);
+                STR_IMMEDIATE(line[1], line[2]);
+                break:
+            case "ldr":
+                System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[2]);
+                LDR_IMMEDIATE(line[1], line[2]);
             default:
                 break;
         }
