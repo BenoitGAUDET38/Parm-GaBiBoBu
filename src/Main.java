@@ -40,7 +40,7 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/tty.s");
+            FileReader reader = new FileReader("code_c/testfp.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             String line; // temp
@@ -101,11 +101,11 @@ public class Main {
                 break;
             case "add":
                 if (line[2].contains("#")) {
-                    System.out.println("Call ADD_IMMEDIATE with " + line[0] + " : " + line[1] + " : " + line[2]);
-                    ADD_IMMEDIATE(line[0], line[1], line[2]);
+                    System.out.println("Call ADD_IMMEDIATE with " + line[1] + " : " + line[2] + " : " + line[3]);
+                    ADD_IMMEDIATE(line[1], line[2], line[3]);
                 } else {
-                    System.out.println("Call ADD_REGISTER with " + line[0] + " : " + line[1] + " : " + line[2]);
-                    ADD_REGISTER(line[0], line[1], line[2]);
+                    System.out.println("Call ADD_REGISTER with " + line[1] + " : " + line[2] + " : " + line[3]);
+                    ADD_REGISTER(line[1], line[2], line[3]);
                 }
                 break;
             case "sub":
@@ -262,20 +262,18 @@ public class Main {
     }
 
     // ADD (register) : Add Register
-    private static void ADD_REGISTER(String rd, String rn, String rm) {
+    private static void ADD_REGISTER(String rm, String rn, String rd) {
         String binary = "0001100";
-        binary += rm;
-        binary += rn;
-        binary += rd;
+        binary += immToBinary(rm, 3);
+        binary += immToBinaryDividedBy4(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
     // SUB (register) : Subtract Register
     private static void SUB_REGISTER(String rd, String rn, String rm) {
         String binary = "0001101";
-        binary += rm;
-        binary += rn;
-        binary += rd;
+        binary += immToBinary(rm, 3);
+        binary += immToBinaryDividedBy4(rd, 3);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
