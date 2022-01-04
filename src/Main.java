@@ -102,7 +102,16 @@ public class Main {
                 }
                 break;
             case "sub":
-                if (line[2].contains("#")) {
+                if  (line[1].contains("sp")) {
+                    if (line[2].contains("#")){
+                        System.out.println("Call SUB_MINUS_IMMEDIATE with " + line[2]);
+                        SUB_MINUS_IMMEDIATE(line[2]);
+                    } else {
+                        System.out.println("Call SUB_MINUS_IMMEDIATE with " + line[3]);
+                        SUB_MINUS_IMMEDIATE(line[3]);
+                    }
+                }
+                else if (line[2].contains("#")) {
                     System.out.println("Call SUB_IMMEDIATE with " +  line[0] + " : " + line[1] + " : " + line[2]);
                     SUB_IMMEDIATE(line[0], line[1], line[2]);
                 } else {
@@ -200,6 +209,16 @@ public class Main {
         }
 
         return binStr.toString();
+    }
+
+    private static String immToBinaryDividedBy4(String imm, int bits) {
+
+        String immWithoutHashtag = imm.substring(1);
+        int immInt = Integer.parseInt(immWithoutHashtag);
+
+        int immIntDividedBy4 = immInt/4;
+
+        return immToBinary("#" + immIntDividedBy4,bits);
     }
 
     // LSL (immediate) : Logical Shift Left
@@ -585,6 +604,20 @@ public class Main {
 
         System.out.println("MVN (Register) Binary " + binary);
         System.out.println("MVN (Register) Hex " + result);
+
+        hexBuffer.append(result).append(" "); // save result in buffer
+    }
+
+    //SUB (SP minus immediate) : Subtract Immediate from SP
+    private static void SUB_MINUS_IMMEDIATE(String offset){
+        String binary = "101100001";
+        String imm7Binary = immToBinaryDividedBy4(offset, 7);
+        binary += imm7Binary;
+
+        String result = binaryToHex(binary);
+
+        System.out.println("SUB (Minus Immediate) Binary " + binary);
+        System.out.println("SUB (Minus Immediate) Hex " + result);
 
         hexBuffer.append(result).append(" "); // save result in buffer
     }
