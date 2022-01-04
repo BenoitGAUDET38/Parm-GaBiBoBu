@@ -444,8 +444,7 @@ public class Main {
     //SUB (SP minus immediate) : Subtract Immediate from SP
     private static void SUB_MINUS_IMMEDIATE(String offset) {
         String binary = "101100001";
-        String imm7Binary = immToBinaryDividedBy4(offset, 7);
-        binary += imm7Binary;
+        binary += immToBinaryDividedBy4(offset, 7);;
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
