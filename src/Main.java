@@ -13,8 +13,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         readProgram();
-        // lines.forEach(x -> System.out.println(x));
-        lines.forEach(x -> packetSwitching(cleanedLine(x)));
+        lines.forEach(x -> System.out.println(Arrays.toString(cleanedLine(x))));
+        // lines.forEach(x -> packetSwitching(cleanedLine(x)));
         writeResult(hexBuffer.toString());
     }
 
