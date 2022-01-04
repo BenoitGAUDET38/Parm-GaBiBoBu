@@ -9,7 +9,8 @@ public class Main {
     private static final String[] op = new String[]{
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
             "ands", "eors", "adcs", "sbsc", "rors", "tst", "rsbs",
-            "cmn", "orrs", "muls", "bics", "mvns", "add", "str", "sub"};
+            "cmn", "orrs", "muls", "bics", "mvns", "add", "str", "sub",
+            "LBB0_"};
 
     public static void main(String[] args) throws IOException {
         readProgram();
@@ -20,19 +21,30 @@ public class Main {
 
     private static String[] cleanedLine(String x) {
         String[] tmp = x.strip().split("\\s+");
-        tmp[1] = tmp[1].replaceAll(",", "");
-        if (tmp.length > 2) {
-            tmp[2] = tmp[2].trim()
-                    .replaceAll("\\[sp, ", "")
-                    .replaceAll("]", "")
-                    .replaceAll(",", "");
-        }
-        if (tmp.length > 3) {
-            tmp[2] = tmp[2].replaceAll("\\[", "");
-            tmp[3] = tmp[3].trim()
-                    .replaceAll("\\[sp, ", "")
-                    .replaceAll("]", "")
-                    .replaceAll(",", "");
+        tmp[0] = tmp[0].trim();
+        if (tmp[0].contains("LBB")) {
+            // LABEL = ".LBB0_10:"
+            tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
+        } else if (tmp[0].equals("b")) {
+            // LABEL "b	.LBB0_12"
+            tmp[1] = tmp[1].trim().replaceAll(".LBB0_", "");
+        } else {
+            if (tmp.length > 1) {
+                tmp[1] = tmp[1].replaceAll(",", "");
+            }
+            if (tmp.length > 2) {
+                tmp[2] = tmp[2].trim()
+                        .replaceAll("\\[sp, ", "")
+                        .replaceAll("]", "")
+                        .replaceAll(",", "");
+            }
+            if (tmp.length > 3) {
+                tmp[2] = tmp[2].replaceAll("\\[", "");
+                tmp[3] = tmp[3].trim()
+                        .replaceAll("\\[sp, ", "")
+                        .replaceAll("]", "")
+                        .replaceAll(",", "");
+            }
         }
         System.out.println("Cleaned to " + Arrays.toString(tmp));
         return tmp;
@@ -40,13 +52,13 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/testfp.s");
+            FileReader reader = new FileReader("code_c/tty.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             String line; // temp
             while ((line = bufferedReader.readLine()) != null) {
                 // Selecting & Filtering ASM lines
-                if (Arrays.stream(op).anyMatch(line.trim()::contains) && !(line.contains("."))) {
+                if (Arrays.stream(op).anyMatch(line.trim()::contains)) {
                     lines.add(line);
                 }
             }
@@ -68,8 +80,11 @@ public class Main {
     }
 
     private static void packetSwitching(String[] line) {
-        System.out.print(line[0] + " " + line[1] + " " + line[2]);
+        /*
+        System.out.print(line[0] + " " + line[1]);
+        System.out.println(line.length == 3 ? " " + line[2] : "");
         System.out.println(line.length == 4 ? " " + line[3] : "");
+         */
 
         switch (line[0].toLowerCase(Locale.ROOT)) {
             case "lsls":
@@ -194,6 +209,7 @@ public class Main {
                 System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[3]);
                 LDR_IMMEDIATE(line[1], line[3]);
             default:
+                System.out.println("NON TRAITE DANS LE SWITCH " + line[0]);
                 break;
         }
     }
@@ -270,7 +286,7 @@ public class Main {
     }
 
     // SUB (register) : Subtract Register
-    private static void SUB_REGISTER(String rd, String rn, String rm) {
+    private static void SUB_REGISTER(String rm, String rn, String rd) {
         String binary = "0001101";
         binary += immToBinary(rm, 3);
         binary += immToBinaryDividedBy4(rd, 3);
