@@ -217,11 +217,25 @@ public class Main {
             case "ldr":
                 System.out.println("Call LDR_IMMEDIATE with " + line[1] + " : " + line[3]);
                 LDR_IMMEDIATE(line[1], line[3]);
+                break;
+            case "b":
+                System.out.println("Call CONDITIONAL_BRANCH with " + line[1]);
+                CONDITIONAL_BRANCH(line[1]);
+                break;
             default:
+                if (line[0].matches("\\d+")) {
+                    System.out.println("Call UNCONDITIONAL_BRANCH with " + line[0]);
+                    UNCONDITIONAL_BRANCH(line[0]);
+                }
                 System.out.println("NON TRAITE DANS LE SWITCH " + line[0]);
                 break;
         }
     }
+
+    private static void CONDITIONAL_BRANCH(String s) {
+    }
+
+    private static void UNCONDITIONAL_BRANCH(String s) {}
 
     private static String binaryToHex(String binary) {
 
