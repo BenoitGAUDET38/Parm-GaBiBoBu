@@ -245,10 +245,8 @@ public class Main {
 
     // LSR (immediate) : Logical Shift Right
     private static void LSR_IMMEDIATE(String rd, String rm, String imm5) {
-
         String binary = "00001";
-        String imm5Binary = immToBinary(imm5, 5);
-        binary += imm5Binary;
+        binary += immToBinary(imm5, 5);;
         binary += rm;
         binary += rd;
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
@@ -284,8 +282,7 @@ public class Main {
     // ADD (immediate) : Add 3-bit Immediate
     private static void ADD_IMMEDIATE(String rd, String rn, String imm3) {
         String binary = "0001110";
-        String imm3Binary = immToBinary(imm3, 3);
-        binary += imm3Binary;
+        binary += immToBinary(imm3, 3);;
         binary += rn;
         binary += rd;
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
@@ -294,8 +291,7 @@ public class Main {
     // SUB (immediate) : Subtract 3-bit immediate
     private static void SUB_IMMEDIATE(String rd, String rn, String imm3) {
         String binary = "0001111";
-        String imm3Binary = immToBinary(imm3, 3);
-        binary += imm3Binary;
+        binary += immToBinary(imm3, 3);
         binary += rn;
         binary += rd;
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
