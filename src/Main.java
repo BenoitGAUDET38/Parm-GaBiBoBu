@@ -8,16 +8,16 @@ public class Main {
     private static final String[] op = new String[]{
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
             "ands", "eors", "adcs", "sbcs", "rors", "tst", "rsbs",
-            "cmn", "orrs", "muls", "bics", "mvns", "add", "str", "sub", "ldr", "b\t"};
-    private static int instructionCount = 0;
+            "cmn", "orrs", "muls", "bics", "mvns", "str", "ldr", "b\t"};
+    private static int instructionCount = 1;
 
     public static void main(String[] args) throws IOException {
         readProgram();
         lines.forEach(x -> packetSwitching(cleanInstruction(x)));
         // System.out.println("---");
         // lines.forEach(System.out::println);
-        System.out.println("---");
-        labels.forEach((key, value) -> System.out.println(key + "  " + value));
+        // System.out.println("---");
+        // labels.forEach((key, value) -> System.out.println(key + "  " + value));
 
         writeResult(hexBuffer.toString());
     }
@@ -32,9 +32,11 @@ public class Main {
         } else if (tmp[0].contains(".addrsig")) {
             return null;
         } else if (tmp[0].equals("b")) {
+            instructionCount++;
             tmp[1] = tmp[1].trim(); //.replaceAll(".LBB0_", "");
             return tmp;
         } else {
+            instructionCount++;
             if (tmp.length > 1) {
                 tmp[1] = tmp[1].replaceAll(",", "");
             }
@@ -52,22 +54,20 @@ public class Main {
                         .replaceAll(",", "");
             }
         }
-        System.out.println(x + " cleaned to " + Arrays.toString(tmp));
+        // System.out.println(x + " cleaned to " + Arrays.toString(tmp));
         return tmp;
     }
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/calckeyb.s");
-
+            FileReader reader = new FileReader("code_c/tty.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
-
             String line; // temp
             while ((line = bufferedReader.readLine()) != null) {
                 // Selecting & Filtering ASM lines
                 if (Arrays.stream(op).anyMatch(line.trim()::contains) || line.trim().startsWith("b")) {
                     lines.add(line);
-                    instructionCount++;
+                    // instructionCount++;
                 }
                 if (line.trim().endsWith(":")) {
                     labels.put(line, instructionCount);
@@ -254,20 +254,13 @@ public class Main {
                         UNCONDITIONAL_BRANCH(line[1]);
                     } else {
                         System.out.println("Call CONDITIONAL_BRANCH with " + line[0] + " | " + line[1]);
-                        CONDITIONAL_BRANCH(line[1]);
+                        CONDITIONAL_BRANCH(line[0], line[1]);
                     }
                 } else {
                     System.out.println("/!\\ NON TRAITE DANS LE SWITCH " + line[0]);
                 }
                 break;
         }
-    }
-
-    private static void CONDITIONAL_BRANCH(String s) {
-    }
-
-    private static void UNCONDITIONAL_BRANCH(String s) {
-
     }
 
     private static String binaryToHex(String binary) {
@@ -283,18 +276,14 @@ public class Main {
     }
 
     private static String intToBinary(String strInt, int bits) {
-
         String strWithoutFirstChar = strInt.substring(1);
         int Int = Integer.parseInt(strWithoutFirstChar);
-
         StringBuilder binStr = new StringBuilder(Integer.toBinaryString(Int));
-
         if (bits != 0) {
             while (binStr.length() != bits) {
                 binStr.insert(0, "0");
             }
         }
-
         return binStr.toString();
     }
 
@@ -557,6 +546,24 @@ public class Main {
     private static void SUB_SP_IMMEDIATE(String offset) {
         String binary = "101100001";
         binary += intToBinaryDividedBy4(offset, 7);
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
+    }
+
+    private static void CONDITIONAL_BRANCH(String cond, String LBB0_) {
+        String binary = "1101";
+        binary += intToBinary(cond, 4);
+        int diff = labels.get(LBB0_ + ":") - instructionCount - 3;
+        binary += intToBinary(String.valueOf(diff), 8);
+        hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
+    }
+
+    private static void UNCONDITIONAL_BRANCH(String LBB0_) {
+        String binary = "11100";
+        int label = labels.get(LBB0_ + ":");
+        int diff = label - instructionCount - 3;
+        String strDiff = " " + diff;
+        binary += intToBinary(strDiff, 11);
+        System.out.println("HEX " + binaryToHex(binary));
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 }
