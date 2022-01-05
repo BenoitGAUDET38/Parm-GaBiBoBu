@@ -69,7 +69,7 @@ public class Main {
                     lines.add(line);
                     instructionCount++;
                 }
-                if (line.trim().endsWith(":")) {
+                if (line.trim().endsWith(":") && !(line.equals("run:"))) {
                     labels.put(line, instructionCount);
                 }
             }
