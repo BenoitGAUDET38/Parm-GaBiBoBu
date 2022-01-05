@@ -84,13 +84,7 @@ public class Main {
     }
 
     private static void packetSwitching(String[] line) {
-        /*
-        System.out.print(line[0] + " " + line[1]);
-        System.out.println(line.length == 3 ? " " + line[2] : "");
-        System.out.println(line.length == 4 ? " " + line[3] : "");
-         */
-
-        switch (line[0].toLowerCase(Locale.ROOT)) {
+        switch (line[0]) {
             case "lsls":
                 if (line.length == 4) {
                     System.out.println("Call LSL_IMMEDIATE with " + line[1] + " | " + line[2] + " | " + line[3]);
@@ -218,31 +212,31 @@ public class Main {
                 MVN_REGISTER(line[1], line[2]);
                 break;
             case "str":
-                if (line[2].toLowerCase(Locale.ROOT).equals("sp")) {
+                if (line[2].equals("sp")) {
                     System.out.println("Call STR_IMMEDIATE with " + line[1] + " | " + line[3]);
                     STR_IMMEDIATE(line[1], line[3]);
                 }
                 break;
             case "ldr":
-                if (line[2].toLowerCase(Locale.ROOT).equals("sp")) {
+                if (line[2].equals("sp")) {
                     System.out.println("Call LDR_IMMEDIATE with " + line[1] + " | " + line[3]);
                     LDR_IMMEDIATE(line[1], line[3]);
                 }
                 break;
             case "add":
-                if (line[1].toLowerCase(Locale.ROOT).equals("sp") && line[2].contains("#")){
+                if (line[1].equals("sp") && line[2].contains("#")){
                     System.out.println("Call ADD_SP_IMMEDIATE with " + line[2]);
                     ADD_SP_IMMEDIATE(line[2]);
-                } else if (line[1].toLowerCase(Locale.ROOT).equals("sp") && line[2].toLowerCase(Locale.ROOT).equals("sp") && line[3].contains("#")){
+                } else if (line[1].equals("sp") && line[2].equals("sp") && line[3].contains("#")){
                     System.out.println("Call ADD_SP_IMMEDIATE with " + line[3]);
                     ADD_SP_IMMEDIATE(line[3]);
                 }
                 break;
             case "sub":
-                if (line[1].toLowerCase(Locale.ROOT).equals("sp") && line[2].contains("#")){
+                if (line[1].equals("sp") && line[2].contains("#")){
                     System.out.println("Call SUB_SP_IMMEDIATE with " + line[2]);
                     SUB_SP_IMMEDIATE(line[2]);
-                } else if (line[1].toLowerCase(Locale.ROOT).equals("sp") && line[2].toLowerCase(Locale.ROOT).equals("sp") && line[3].contains("#")){
+                } else if (line[1].equals("sp") && line[2].equals("sp") && line[3].contains("#")){
                     System.out.println("Call SUB_SP_IMMEDIATE with " + line[3]);
                     SUB_SP_IMMEDIATE(line[3]);
                 }
