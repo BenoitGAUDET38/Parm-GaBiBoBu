@@ -56,7 +56,7 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/calckeyb.s");
+            FileReader reader = new FileReader("code_c/own_tests.s");
 
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line; // temp
@@ -152,8 +152,13 @@ public class Main {
                 }
                 break;
             case "movs":
-                System.out.println("Call MOV_IMMEDIATE with " + line[1] + " | " + line[2]);
-                MOV_IMMEDIATE(line[1], line[2]);
+                if (line[2].contains("#")){
+                    System.out.println("Call MOV_IMMEDIATE with " + line[1] + " | " + line[2]);
+                    MOV_IMMEDIATE(line[1], line[2]);
+                } else {
+                    System.out.println("Call LSL_IMMEDIATE with " + line[1] + " | " + line[2] + " | #0");
+                    LSL_IMMEDIATE(line[1], line[2], "#0");
+                }
                 break;
             case "cmp":
                 if (line[2].contains("#")) {

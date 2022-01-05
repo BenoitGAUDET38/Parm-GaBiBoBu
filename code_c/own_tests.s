@@ -1,2 +1,2 @@
 run:
-	ldr r0, [sp]
+	movs r0, r2
