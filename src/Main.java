@@ -10,6 +10,7 @@ public class Main {
             "ands", "eors", "adcs", "sbcs", "rors", "tst", "rsbs",
             "cmn", "orrs", "muls", "bics", "mvns", "str", "ldr", "b\t"};
     private static int instructionCount = 0;
+    private static int currentLine = 1;
 
     public static void main(String[] args) throws IOException {
         readProgram();
@@ -20,27 +21,6 @@ public class Main {
         // labels.forEach((key, value) -> System.out.println(key + "  " + value));
 
         writeResult(hexBuffer.toString());
-    }
-
-    private static void readProgram() {
-        try {
-            FileReader reader = new FileReader("code_c/tty.s");
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line; // temp
-            while ((line = bufferedReader.readLine()) != null) {
-                // Selecting & Filtering ASM lines
-                if (Arrays.stream(op).anyMatch(line.trim()::contains) || line.trim().startsWith("b")) {
-                    lines.add(line);
-                    // instructionCount++;
-                }
-                if (line.trim().endsWith(":")) {
-                    labels.put(line, instructionCount);
-                }
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private static String[] cleanInstruction(String x) {
@@ -77,6 +57,28 @@ public class Main {
         }
         // System.out.println(x + " cleaned to " + Arrays.toString(tmp));
         return tmp;
+    }
+
+    private static void readProgram() {
+        try {
+            FileReader reader = new FileReader("code_c/tty.s");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line; // temp
+            while ((line = bufferedReader.readLine()) != null) {
+                // Selecting & Filtering ASM lines
+                if (Arrays.stream(op).anyMatch(line.trim()::contains) || line.trim().startsWith("b")) {
+                    lines.add(line);
+                    // instructionCount++;
+                    currentLine++;
+                }
+                if (line.trim().endsWith(":")) {
+                    labels.put(line, currentLine);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void writeResult(String buffer) {
@@ -599,7 +601,6 @@ public class Main {
         int label = labels.get(LBB0_ + ":");
         int diff = label - instructionCount - 3;
         binary += intToBinary("" + diff, 11);
-        System.out.println("HEX " + binaryToHex(binary));
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 }
