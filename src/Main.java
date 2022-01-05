@@ -27,7 +27,7 @@ public class Main {
         tmp[0] = tmp[0].trim();
         if (tmp[0].endsWith(":")) {
             // tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
-            System.out.println("/!\\ INSTRUCTION SPOTTED! " + tmp[0]);
+            System.out.println("/!\\ LABEL SPOTTED! " + tmp[0]);
             return null;
         } else if (tmp[0].contains(".addrsig")) {
             return null;
@@ -58,18 +58,18 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/tty.s");
+            FileReader reader = new FileReader("code_c/calckeyb.s");
 
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             String line; // temp
             while ((line = bufferedReader.readLine()) != null) {
                 // Selecting & Filtering ASM lines
-                if (Arrays.stream(op).anyMatch(line.trim()::contains)) {
+                if (Arrays.stream(op).anyMatch(line.trim()::contains) || line.trim().startsWith("b")) {
                     lines.add(line);
                     instructionCount++;
                 }
-                if (line.trim().endsWith(":") && !(line.equals("run:"))) {
+                if (line.trim().endsWith(":")) {
                     labels.put(line, instructionCount);
                 }
             }
@@ -250,11 +250,11 @@ public class Main {
             default:
                 if (line[0].startsWith("b")) {
                     if (line[0].equals("b")) {
-                        System.out.println("Call CONDITIONAL_BRANCH with " + line[1]);
-                        CONDITIONAL_BRANCH(line[1]);
-                    } else {
                         System.out.println("Call UNCONDITIONAL_BRANCH with " + line[1]);
                         UNCONDITIONAL_BRANCH(line[1]);
+                    } else {
+                        System.out.println("Call CONDITIONAL_BRANCH with " + line[0] + " | " + line[1]);
+                        CONDITIONAL_BRANCH(line[1]);
                     }
                 } else {
                     System.out.println("/!\\ NON TRAITE DANS LE SWITCH " + line[0]);
