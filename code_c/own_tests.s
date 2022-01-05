@@ -1,2 +1,2 @@
 run:
-	ldr r0, sp
+	ldr r0, [sp]
