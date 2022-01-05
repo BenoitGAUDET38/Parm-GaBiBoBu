@@ -6,6 +6,8 @@ import java.util.Objects;
 
 public class Main {
     private static final ArrayList<String> lines = new ArrayList<>();
+    private static final ArrayList<String> labels = new ArrayList<>();
+
     private static final StringBuilder hexBuffer = new StringBuilder("v2.0 raw\n"); // IO time reducing
     private static final String[] op = new String[]{
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
@@ -47,7 +49,7 @@ public class Main {
                         .replaceAll(",", "");
             }
         }
-        System.out.println("Cleaned to " + Arrays.toString(tmp));
+        System.out.println(x + " cleaned to " + Arrays.toString(tmp));
         return tmp;
     }
 
@@ -232,6 +234,7 @@ public class Main {
                     System.out.println("Call ADD_SP_IMMEDIATE with " + line[2]);
                     ADD_SP_IMMEDIATE(line[2]);
                 } else if (line[1].toLowerCase(Locale.ROOT).equals("sp") && line[2].toLowerCase(Locale.ROOT).equals("sp") && line[3].contains("#")){
+                    System.out.println("Call ADD_SP_IMMEDIATE with " + line[3]);
                     ADD_SP_IMMEDIATE(line[3]);
                 }
                 break;
@@ -240,20 +243,21 @@ public class Main {
                     System.out.println("Call SUB_SP_IMMEDIATE with " + line[2]);
                     SUB_SP_IMMEDIATE(line[2]);
                 } else if (line[1].toLowerCase(Locale.ROOT).equals("sp") && line[2].toLowerCase(Locale.ROOT).equals("sp") && line[3].contains("#")){
+                    System.out.println("Call SUB_SP_IMMEDIATE with " + line[3]);
                     SUB_SP_IMMEDIATE(line[3]);
                 }
                 break;
             case "b":
-                System.out.println("Call CONDITIONAL_BRANCH with " + line[1]);
-                CONDITIONAL_BRANCH(line[1]);
+                // System.out.println("Call CONDITIONAL_BRANCH with " + line[1]);
+                // CONDITIONAL_BRANCH(line[1]);
                 break;
             default:
                 if (line[0].matches("\\d+")) {
-                    System.out.println("Call UNCONDITIONAL_BRANCH with " + line[0]);
-                    UNCONDITIONAL_BRANCH(line[0]);
+                    // System.out.println("Call UNCONDITIONAL_BRANCH with " + line[0]);
+                    // UNCONDITIONAL_BRANCH(line[0]);
                     break;
                 }
-                System.out.println("/!\\ NON TRAITE DANS LE SWITCH " + line[0]);
+                // System.out.println("/!\\ NON TRAITE DANS LE SWITCH " + line[0]);
                 break;
         }
     }
