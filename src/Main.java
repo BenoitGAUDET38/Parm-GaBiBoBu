@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Main {
     private static final ArrayList<String> lines = new ArrayList<>();
-    private static final HashMap<String, Integer> labels = new HashMap<>();
+    private static final HashMap<Integer, Integer> labels = new HashMap<>();
 
     private static int instructionCount = 0;
 
@@ -22,6 +22,10 @@ public class Main {
         labels.forEach((key, value) -> System.out.println(key + "=" + value));
 
         writeResult(hexBuffer.toString());
+    }
+
+    private static Integer cleanLabel(String label) {
+        return Integer.parseInt(label.replaceAll(".LBB0_", "").replaceAll(":", ""));
     }
 
     private static String[] cleanInstruction(String x) {
@@ -72,7 +76,7 @@ public class Main {
                     instructionCount++;
                 }
                 if (line.contains("LBB") && !(line.contains("b\t"))) {
-                    labels.put(line, instructionCount);
+                    labels.put(cleanLabel(line), instructionCount);
                 }
             }
             reader.close();
