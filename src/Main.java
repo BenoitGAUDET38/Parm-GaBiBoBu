@@ -12,13 +12,17 @@ public class Main {
     private static final String[] op = new String[]{
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
             "ands", "eors", "adcs", "sbcs", "rors", "tst", "rsbs",
-            "cmn", "orrs", "muls", "bics", "mvns", "add", "str", "sub",
-            "ldr", "LBB0_"};
+            "cmn", "orrs", "muls", "bics", "mvns", "add", "str", "sub", "ldr", "b\t"};
 
     public static void main(String[] args) throws IOException {
         readProgram();
         // lines.forEach(x -> System.out.println(Arrays.toString(cleanedLine(x))));
         lines.forEach(x -> packetSwitching(cleanedLine(x)));
+
+        lines.forEach(System.out::println);
+        System.out.println("---");
+        labels.forEach(System.out::println);
+
         writeResult(hexBuffer.toString());
     }
 
@@ -64,6 +68,9 @@ public class Main {
                 // Selecting & Filtering ASM lines
                 if (Arrays.stream(op).anyMatch(line.trim()::contains)) {
                     lines.add(line);
+                }
+                if (line.contains("LBB") && !(line.contains("b\t"))) {
+                    labels.add(line);
                 }
             }
             reader.close();
