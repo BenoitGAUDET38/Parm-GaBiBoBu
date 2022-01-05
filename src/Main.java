@@ -61,7 +61,7 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/calckeyb.s");
+            FileReader reader = new FileReader("code_c/own_tests.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line; // temp
             while ((line = bufferedReader.readLine()) != null) {
@@ -220,13 +220,21 @@ public class Main {
                 MVN_REGISTER(line[1], line[2]);
                 break;
             case "str":
-                if (line[2].equals("sp")) {
+                if  (line.length == 3 && line[2].equals("sp")){
+                    System.out.println("Call STR_IMMEDIATE with " + line[1]);
+                    STR_IMMEDIATE(line[1], "#0");
+                }
+                else if (line[2].equals("sp")) {
                     System.out.println("Call STR_IMMEDIATE with " + line[1] + " | " + line[3]);
                     STR_IMMEDIATE(line[1], line[3]);
                 }
                 break;
             case "ldr":
-                if (line[2].equals("sp")) {
+                if  (line.length == 3 && line[2].equals("sp")){
+                    System.out.println("Call LDR_IMMEDIATE with " + line[1]);
+                    LDR_IMMEDIATE(line[1], "#0");
+                }
+                else if (line[2].equals("sp")) {
                     System.out.println("Call LDR_IMMEDIATE with " + line[1] + " | " + line[3]);
                     LDR_IMMEDIATE(line[1], line[3]);
                 }

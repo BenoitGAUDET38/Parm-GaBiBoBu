@@ -1,2 +1,2 @@
 run:
-    sub	sp, sp, #508
+	ldr r0, sp
