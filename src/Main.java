@@ -68,7 +68,6 @@ public class Main {
                 // Selecting & Filtering ASM lines
                 if (Arrays.stream(op).anyMatch(line.trim()::contains) || line.trim().startsWith("b")) {
                     lines.add(line);
-                    // instructionCount++;
                     currentLine++;
                 }
                 if (line.trim().endsWith(":")) {
@@ -281,7 +280,7 @@ public class Main {
     private static String intToBinary(String strInt, int bits) {
         if (strInt.charAt(0) == '-'){
             String positiveStrInt = intToBinary(strInt.substring(1), bits);
-            return twosCompliment(positiveStrInt);
+            return twosComplement(positiveStrInt);
         } else {
             if (strInt.charAt(0) == 'r' || strInt.charAt(0) == '#'){
                 strInt = strInt.substring(1);
@@ -297,7 +296,7 @@ public class Main {
         }
     }
 
-    public static String twosCompliment(String bin) {
+    public static String twosComplement(String bin) {
         String twos;
         StringBuilder ones = new StringBuilder();
         for (int i = 0; i < bin.length(); i++) {
@@ -591,8 +590,9 @@ public class Main {
     private static void CONDITIONAL_BRANCH(String cond, String LBB0_) {
         String binary = "1101";
         binary += intToBinary(cond, 4);
-        int diff = labels.get(LBB0_ + ":") - instructionCount - 3;
-        binary += intToBinary(String.valueOf(diff), 8);
+        int label = labels.get(LBB0_ + ":");
+        int diff = label - instructionCount - 3;
+        binary += intToBinary("" + diff, 8);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
 
