@@ -18,7 +18,7 @@ public class Main {
         readProgram();
         // lines.forEach(x -> System.out.println(Arrays.toString(cleanedLine(x))));
         lines.forEach(x -> packetSwitching(cleanedLine(x)));
-
+        System.out.println("---");
         lines.forEach(System.out::println);
         System.out.println("---");
         labels.forEach(System.out::println);
@@ -30,11 +30,11 @@ public class Main {
         String[] tmp = x.strip().split("\\s+");
         tmp[0] = tmp[0].trim();
         if (tmp[0].contains("LBB")) {
-            // LABEL = ".LBB0_10:"
-            tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
+            // tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
+            return null;
         } else if (tmp[0].equals("b")) {
-            // LABEL "b	.LBB0_12"
-            tmp[1] = tmp[1].trim().replaceAll(".LBB0_", "");
+            // tmp[1] = tmp[1].trim().replaceAll(".LBB0_", "");
+            return null;
         } else {
             if (tmp.length > 1) {
                 tmp[1] = tmp[1].replaceAll(",", "");
@@ -91,6 +91,7 @@ public class Main {
     }
 
     private static void packetSwitching(String[] line) {
+        if (line == null) return;
         switch (line[0]) {
             case "lsls":
                 if (line.length == 4) {
