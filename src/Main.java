@@ -9,7 +9,7 @@ public class Main {
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
             "ands", "eors", "adcs", "sbcs", "rors", "tst", "rsbs",
             "cmn", "orrs", "muls", "bics", "mvns", "str", "ldr", "b\t"};
-    private static int instructionCount = 1;
+    private static int instructionCount = 0;
 
     public static void main(String[] args) throws IOException {
         readProgram();
@@ -20,42 +20,6 @@ public class Main {
         // labels.forEach((key, value) -> System.out.println(key + "  " + value));
 
         writeResult(hexBuffer.toString());
-    }
-
-    private static String[] cleanInstruction(String x) {
-        String[] tmp = x.strip().split("\\s+");
-        tmp[0] = tmp[0].trim();
-        if (tmp[0].endsWith(":")) {
-            // tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
-            System.out.println("/!\\ LABEL SPOTTED! " + tmp[0]);
-            return null;
-        } else if (tmp[0].contains(".addrsig")) {
-            return null;
-        } else if (tmp[0].equals("b")) {
-            instructionCount++;
-            tmp[1] = tmp[1].trim(); //.replaceAll(".LBB0_", "");
-            return tmp;
-        } else {
-            instructionCount++;
-            if (tmp.length > 1) {
-                tmp[1] = tmp[1].replaceAll(",", "");
-            }
-            if (tmp.length > 2) {
-                tmp[2] = tmp[2].trim()
-                        .replaceAll("\\[sp, ", "")
-                        .replaceAll("]", "")
-                        .replaceAll(",", "");
-            }
-            if (tmp.length > 3) {
-                tmp[2] = tmp[2].replaceAll("\\[", "");
-                tmp[3] = tmp[3].trim()
-                        .replaceAll("\\[sp, ", "")
-                        .replaceAll("]", "")
-                        .replaceAll(",", "");
-            }
-        }
-        // System.out.println(x + " cleaned to " + Arrays.toString(tmp));
-        return tmp;
     }
 
     private static void readProgram() {
@@ -79,6 +43,42 @@ public class Main {
         }
     }
 
+    private static String[] cleanInstruction(String x) {
+        String[] tmp = x.strip().split("\\s+");
+        tmp[0] = tmp[0].trim();
+        if (tmp[0].endsWith(":")) {
+            // tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
+            System.out.println("/!\\ LABEL SPOTTED! " + tmp[0]);
+            return null;
+        } else if (tmp[0].contains(".addrsig")) {
+            return null;
+        } else if (tmp[0].equals("b")) {
+            // instructionCount++;
+            tmp[1] = tmp[1].trim(); //.replaceAll(".LBB0_", "");
+            return tmp;
+        } else {
+            // instructionCount++;
+            if (tmp.length > 1) {
+                tmp[1] = tmp[1].replaceAll(",", "");
+            }
+            if (tmp.length > 2) {
+                tmp[2] = tmp[2].trim()
+                        .replaceAll("\\[sp, ", "")
+                        .replaceAll("]", "")
+                        .replaceAll(",", "");
+            }
+            if (tmp.length > 3) {
+                tmp[2] = tmp[2].replaceAll("\\[", "");
+                tmp[3] = tmp[3].trim()
+                        .replaceAll("\\[sp, ", "")
+                        .replaceAll("]", "")
+                        .replaceAll(",", "");
+            }
+        }
+        // System.out.println(x + " cleaned to " + Arrays.toString(tmp));
+        return tmp;
+    }
+
     private static void writeResult(String buffer) {
         final boolean APPEND = false;
         try {
@@ -92,6 +92,7 @@ public class Main {
 
     private static void packetSwitching(String[] line) {
         if (line == null) return;
+        instructionCount++;
         switch (line[0]) {
             case "lsls":
                 if (line.length == 4) {
@@ -295,13 +296,13 @@ public class Main {
     }
 
     public static String twosCompliment(String bin) {
-        String twos = "", ones = "";
-
+        String twos;
+        StringBuilder ones = new StringBuilder();
         for (int i = 0; i < bin.length(); i++) {
-            ones += flip(bin.charAt(i));
+            ones.append(flip(bin.charAt(i)));
         }
-        int number0 = Integer.parseInt(ones, 2);
-        StringBuilder builder = new StringBuilder(ones);
+        int number0 = Integer.parseInt(ones.toString(), 2);
+        StringBuilder builder = new StringBuilder(ones.toString());
         boolean b = false;
         for (int i = ones.length() - 1; i > 0; i--) {
             if (ones.charAt(i) == '1') {
@@ -314,9 +315,7 @@ public class Main {
         }
         if (!b)
             builder.append("1", 0, 7);
-
         twos = builder.toString();
-
         return twos;
     }
 
@@ -599,8 +598,7 @@ public class Main {
         String binary = "11100";
         int label = labels.get(LBB0_ + ":");
         int diff = label - instructionCount - 3;
-        String strDiff = " " + diff;
-        binary += intToBinary(strDiff, 11);
+        binary += intToBinary("" + diff, 11);
         System.out.println("HEX " + binaryToHex(binary));
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
