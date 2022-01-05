@@ -9,17 +9,13 @@ public class Main {
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
             "ands", "eors", "adcs", "sbcs", "rors", "tst", "rsbs",
             "cmn", "orrs", "muls", "bics", "mvns", "str", "ldr", "b\t"};
+    private static final boolean APPEND = false;
     private static int instructionCount = 0;
     private static int currentLine = 1;
 
     public static void main(String[] args) throws IOException {
         readProgram();
         lines.forEach(x -> packetSwitching(cleanInstruction(x)));
-        // System.out.println("---");
-        // lines.forEach(System.out::println);
-        // System.out.println("---");
-        // labels.forEach((key, value) -> System.out.println(key + "  " + value));
-
         writeResult(hexBuffer.toString());
     }
 
@@ -27,33 +23,31 @@ public class Main {
         String[] tmp = x.strip().split("\\s+");
         tmp[0] = tmp[0].trim();
         if (tmp[0].endsWith(":")) {
-            // tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
             System.out.println("/!\\ LABEL SPOTTED! " + tmp[0]);
             return null;
-        } else if (tmp[0].contains(".addrsig")) {
+        }
+        if (tmp[0].contains(".addrsig")) {
             return null;
-        } else if (tmp[0].equals("b")) {
-            // instructionCount++;
+        }
+        if (tmp[0].equals("b")) {
             tmp[1] = tmp[1].trim(); //.replaceAll(".LBB0_", "");
             return tmp;
-        } else {
-            // instructionCount++;
-            if (tmp.length > 1) {
-                tmp[1] = tmp[1].replaceAll(",", "");
-            }
-            if (tmp.length > 2) {
-                tmp[2] = tmp[2].trim()
-                        .replaceAll("\\[sp, ", "")
-                        .replaceAll("]", "")
-                        .replaceAll(",", "");
-            }
-            if (tmp.length > 3) {
-                tmp[2] = tmp[2].replaceAll("\\[", "");
-                tmp[3] = tmp[3].trim()
-                        .replaceAll("\\[sp, ", "")
-                        .replaceAll("]", "")
-                        .replaceAll(",", "");
-            }
+        }
+        if (tmp.length > 1) {
+            tmp[1] = tmp[1].replaceAll(",", "");
+        }
+        if (tmp.length > 2) {
+            tmp[2] = tmp[2].trim()
+                    .replaceAll("\\[sp, ", "")
+                    .replaceAll("]", "")
+                    .replaceAll(",", "");
+        }
+        if (tmp.length > 3) {
+            tmp[2] = tmp[2].replaceAll("\\[", "");
+            tmp[3] = tmp[3].trim()
+                    .replaceAll("\\[sp, ", "")
+                    .replaceAll("]", "")
+                    .replaceAll(",", "");
         }
         // System.out.println(x + " cleaned to " + Arrays.toString(tmp));
         return tmp;
@@ -61,7 +55,7 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/calckeyb.s");
+            FileReader reader = new FileReader("code_c/simple_add.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line; // temp
             while ((line = bufferedReader.readLine()) != null) {
@@ -81,7 +75,6 @@ public class Main {
     }
 
     private static void writeResult(String buffer) {
-        final boolean APPEND = false;
         try {
             FileWriter writer = new FileWriter("result.bin", APPEND);
             writer.write(buffer);
@@ -278,11 +271,11 @@ public class Main {
     }
 
     private static String intToBinary(String strInt, int bits) {
-        if (strInt.charAt(0) == '-'){
+        if (strInt.charAt(0) == '-') {
             String positiveStrInt = intToBinary(strInt.substring(1), bits);
             return twosComplement(positiveStrInt);
         } else {
-            if (strInt.charAt(0) == 'r' || strInt.charAt(0) == '#'){
+            if (strInt.charAt(0) == 'r' || strInt.charAt(0) == '#') {
                 strInt = strInt.substring(1);
             }
             int Int = Integer.parseInt(strInt);
@@ -607,7 +600,7 @@ public class Main {
             case "al" -> binary += "1110";
             default -> {
                 binary += "1111";
-                System.out.println("Erreur potentiel SW conditional" + cond);
+                System.out.println("Potential error SW conditional" + cond);
             }
         }
         int label = labels.get(LBB0_ + ":");
