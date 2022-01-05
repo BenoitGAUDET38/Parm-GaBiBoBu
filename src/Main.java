@@ -3,42 +3,36 @@ import java.util.*;
 
 public class Main {
     private static final ArrayList<String> lines = new ArrayList<>();
-    private static final HashMap<Integer, Integer> labels = new HashMap<>();
-
-    private static int instructionCount = 0;
-
+    private static final HashMap<String, Integer> labels = new HashMap<>();
     private static final StringBuilder hexBuffer = new StringBuilder("v2.0 raw\n"); // IO time reducing
     private static final String[] op = new String[]{
             "lsls", "lsrs", "asrs", "add", "sub", "movs", "cmp",
             "ands", "eors", "adcs", "sbcs", "rors", "tst", "rsbs",
             "cmn", "orrs", "muls", "bics", "mvns", "add", "str", "sub", "ldr", "b\t"};
+    private static int instructionCount = 0;
 
     public static void main(String[] args) throws IOException {
         readProgram();
         lines.forEach(x -> packetSwitching(cleanInstruction(x)));
+        // System.out.println("---");
+        // lines.forEach(System.out::println);
         System.out.println("---");
-        lines.forEach(System.out::println);
-        System.out.println("---");
-        labels.forEach((key, value) -> System.out.println(key + "=" + value));
+        labels.forEach((key, value) -> System.out.println(key + "  " + value));
 
         writeResult(hexBuffer.toString());
-    }
-
-    private static Integer cleanLabel(String label) {
-        return Integer.parseInt(label.replaceAll(".LBB0_", "").replaceAll(":", ""));
     }
 
     private static String[] cleanInstruction(String x) {
         String[] tmp = x.strip().split("\\s+");
         tmp[0] = tmp[0].trim();
-        if (tmp[0].contains("LBB")) {
+        if (tmp[0].endsWith(":")) {
             // tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
-            System.out.println("/!\\ LBB IN INSTRUCTION SPOTTED!");
+            System.out.println("/!\\ INSTRUCTION SPOTTED! " + tmp[0]);
             return null;
         } else if (tmp[0].contains(".addrsig")) {
             return null;
         } else if (tmp[0].equals("b")) {
-            tmp[1] = tmp[1].trim().replaceAll(".LBB0_", "");
+            tmp[1] = tmp[1].trim(); //.replaceAll(".LBB0_", "");
             return tmp;
         } else {
             if (tmp.length > 1) {
@@ -75,8 +69,8 @@ public class Main {
                     lines.add(line);
                     instructionCount++;
                 }
-                if (line.contains("LBB") && !(line.contains("b\t"))) {
-                    labels.put(cleanLabel(line), instructionCount);
+                if (line.trim().endsWith(":")) {
+                    labels.put(line, instructionCount);
                 }
             }
             reader.close();
@@ -253,17 +247,18 @@ public class Main {
                     SUB_SP_IMMEDIATE(line[3]);
                 }
                 break;
-            case "b":
-                // System.out.println("Call CONDITIONAL_BRANCH with " + line[1]);
-                // CONDITIONAL_BRANCH(line[1]);
-                break;
             default:
-                if (line[0].matches("\\d+")) {
-                    // System.out.println("Call UNCONDITIONAL_BRANCH with " + line[0]);
-                    // UNCONDITIONAL_BRANCH(line[0]);
-                    break;
+                if (line[0].startsWith("b")) {
+                    if (line[0].equals("b")) {
+                        System.out.println("Call CONDITIONAL_BRANCH with " + line[1]);
+                        CONDITIONAL_BRANCH(line[1]);
+                    } else {
+                        System.out.println("Call UNCONDITIONAL_BRANCH with " + line[1]);
+                        UNCONDITIONAL_BRANCH(line[1]);
+                    }
+                } else {
+                    System.out.println("/!\\ NON TRAITE DANS LE SWITCH " + line[0]);
                 }
-                // System.out.println("/!\\ NON TRAITE DANS LE SWITCH " + line[0]);
                 break;
         }
     }
