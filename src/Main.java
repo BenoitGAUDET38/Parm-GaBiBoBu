@@ -1,12 +1,11 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public class Main {
     private static final ArrayList<String> lines = new ArrayList<>();
-    private static final ArrayList<String> labels = new ArrayList<>();
+    private static final HashMap<String, Integer> labels = new HashMap<>();
+
+    private static int instructionCount = 0;
 
     private static final StringBuilder hexBuffer = new StringBuilder("v2.0 raw\n"); // IO time reducing
     private static final String[] op = new String[]{
@@ -16,25 +15,27 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         readProgram();
-        // lines.forEach(x -> System.out.println(Arrays.toString(cleanedLine(x))));
-        lines.forEach(x -> packetSwitching(cleanedLine(x)));
+        lines.forEach(x -> packetSwitching(cleanInstruction(x)));
         System.out.println("---");
         lines.forEach(System.out::println);
         System.out.println("---");
-        labels.forEach(System.out::println);
+        labels.forEach((key, value) -> System.out.println(key + "=" + value));
 
         writeResult(hexBuffer.toString());
     }
 
-    private static String[] cleanedLine(String x) {
+    private static String[] cleanInstruction(String x) {
         String[] tmp = x.strip().split("\\s+");
         tmp[0] = tmp[0].trim();
         if (tmp[0].contains("LBB")) {
             // tmp[0] = tmp[0].replaceAll(".LBB0_", "").replaceAll(":", "");
+            System.out.println("/!\\ LBB IN INSTRUCTION SPOTTED!");
+            return null;
+        } else if (tmp[0].contains(".addrsig")) {
             return null;
         } else if (tmp[0].equals("b")) {
-            // tmp[1] = tmp[1].trim().replaceAll(".LBB0_", "");
-            return null;
+            tmp[1] = tmp[1].trim().replaceAll(".LBB0_", "");
+            return tmp;
         } else {
             if (tmp.length > 1) {
                 tmp[1] = tmp[1].replaceAll(",", "");
@@ -68,9 +69,10 @@ public class Main {
                 // Selecting & Filtering ASM lines
                 if (Arrays.stream(op).anyMatch(line.trim()::contains)) {
                     lines.add(line);
+                    instructionCount++;
                 }
                 if (line.contains("LBB") && !(line.contains("b\t"))) {
-                    labels.add(line);
+                    labels.put(line, instructionCount);
                 }
             }
             reader.close();
@@ -121,15 +123,14 @@ public class Main {
                 }
                 break;
             case "adds":
-                if (line[2].contains("#")){
+                if (line[2].contains("#")) {
                     System.out.println("Call ADD_8_IMMEDIATE with " + line[1] + " | " + line[2]);
                     ADD_8_IMMEDIATE(line[1], line[2]);
-                }
-                else if (line[3].contains("#")){
-                    if ((intToBinary(line[3],0)).length() <= 3) {
+                } else if (line[3].contains("#")) {
+                    if ((intToBinary(line[3], 0)).length() <= 3) {
                         System.out.println("Call ADD_3_IMMEDIATE with " + line[1] + " | " + line[2] + " | " + line[3]);
                         ADD_3_IMMEDIATE(line[1], line[2], line[3]);
-                    } else if (Objects.equals(line[1], line[2])){
+                    } else if (Objects.equals(line[1], line[2])) {
                         System.out.println("Call ADD_8_IMMEDIATE with " + line[1] + " | " + line[2] + " | " + line[3]);
                         ADD_8_IMMEDIATE(line[1], line[3]);
                     }
@@ -139,15 +140,14 @@ public class Main {
                 }
                 break;
             case "subs":
-                if (line[2].contains("#")){
+                if (line[2].contains("#")) {
                     System.out.println("Call SUB_8_IMMEDIATE with " + line[1] + " | " + line[2]);
                     SUB_8_IMMEDIATE(line[1], line[2]);
-                }
-                else if (line[3].contains("#")){
-                    if ((intToBinary(line[3],0)).length() <= 3) {
+                } else if (line[3].contains("#")) {
+                    if ((intToBinary(line[3], 0)).length() <= 3) {
                         System.out.println("Call SUB_3_IMMEDIATE with " + line[1] + " | " + line[2] + " | " + line[3]);
                         SUB_3_IMMEDIATE(line[1], line[2], line[3]);
-                    } else if (Objects.equals(line[1], line[2])){
+                    } else if (Objects.equals(line[1], line[2])) {
                         System.out.println("Call SUB_8_IMMEDIATE with " + line[1] + " | " + line[2] + " | " + line[3]);
                         SUB_8_IMMEDIATE(line[1], line[3]);
                     }
@@ -206,7 +206,7 @@ public class Main {
                 ORR_REGISTER(line[1], line[2]);
                 break;
             case "muls":
-                if (line[1].equals(line[3])){
+                if (line[1].equals(line[3])) {
                     System.out.println("Call MUL with " + line[1] + " | " + line[2] + " | " + line[3]);
                     MUL(line[1], line[2]);
                 }
@@ -232,19 +232,19 @@ public class Main {
                 }
                 break;
             case "add":
-                if (line[1].equals("sp") && line[2].contains("#")){
+                if (line[1].equals("sp") && line[2].contains("#")) {
                     System.out.println("Call ADD_SP_IMMEDIATE with " + line[2]);
                     ADD_SP_IMMEDIATE(line[2]);
-                } else if (line[1].equals("sp") && line[2].equals("sp") && line[3].contains("#")){
+                } else if (line[1].equals("sp") && line[2].equals("sp") && line[3].contains("#")) {
                     System.out.println("Call ADD_SP_IMMEDIATE with " + line[3]);
                     ADD_SP_IMMEDIATE(line[3]);
                 }
                 break;
             case "sub":
-                if (line[1].equals("sp") && line[2].contains("#")){
+                if (line[1].equals("sp") && line[2].contains("#")) {
                     System.out.println("Call SUB_SP_IMMEDIATE with " + line[2]);
                     SUB_SP_IMMEDIATE(line[2]);
-                } else if (line[1].equals("sp") && line[2].equals("sp") && line[3].contains("#")){
+                } else if (line[1].equals("sp") && line[2].equals("sp") && line[3].contains("#")) {
                     System.out.println("Call SUB_SP_IMMEDIATE with " + line[3]);
                     SUB_SP_IMMEDIATE(line[3]);
                 }
@@ -290,7 +290,7 @@ public class Main {
 
         StringBuilder binStr = new StringBuilder(Integer.toBinaryString(Int));
 
-        if (bits != 0){
+        if (bits != 0) {
             while (binStr.length() != bits) {
                 binStr.insert(0, "0");
             }
@@ -392,7 +392,7 @@ public class Main {
     // ADD (immediate) : Add 8-bit Immediate
     private static void ADD_8_IMMEDIATE(String rdn, String imm8) {
         String binary = "00110";
-        binary += intToBinary(rdn,3);
+        binary += intToBinary(rdn, 3);
         binary += intToBinary(imm8, 8);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
@@ -400,7 +400,7 @@ public class Main {
     // SUB (immediate) : Subtract 8-bit Immediate
     private static void SUB_8_IMMEDIATE(String rdn, String imm8) {
         String binary = "00111";
-        binary += intToBinary(rdn,3);
+        binary += intToBinary(rdn, 3);
         binary += intToBinary(imm8, 8);
         hexBuffer.append(binaryToHex(binary)).append(" "); // save result in buffer
     }
