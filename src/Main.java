@@ -589,7 +589,7 @@ public class Main {
 
     private static void CONDITIONAL_BRANCH(String cond, String LBB0_) {
         String binary = "1101";
-        switch (cond) {
+        switch (cond.substring(1)) {
             case "eq" -> binary += "0000";
             case "ne" -> binary += "0001";
             case "cs", "hs" -> binary += "0010";
@@ -607,7 +607,7 @@ public class Main {
             case "al" -> binary += "1110";
             default -> {
                 binary += "1111";
-                System.out.println("Erreur potentiel SW conditional");
+                System.out.println("Erreur potentiel SW conditional" + cond);
             }
         }
         int label = labels.get(LBB0_ + ":");
