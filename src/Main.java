@@ -61,7 +61,7 @@ public class Main {
 
     private static void readProgram() {
         try {
-            FileReader reader = new FileReader("code_c/tty.s");
+            FileReader reader = new FileReader("code_c/calckeyb.s");
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line; // temp
             while ((line = bufferedReader.readLine()) != null) {
@@ -589,7 +589,27 @@ public class Main {
 
     private static void CONDITIONAL_BRANCH(String cond, String LBB0_) {
         String binary = "1101";
-        binary += intToBinary(cond, 4);
+        switch (cond) {
+            case "eq" -> binary += "0000";
+            case "ne" -> binary += "0001";
+            case "cs", "hs" -> binary += "0010";
+            case "cc", "lo" -> binary += "0011";
+            case "mi" -> binary += "0100";
+            case "pl" -> binary += "0101";
+            case "vs" -> binary += "0110";
+            case "vc" -> binary += "0111";
+            case "hi" -> binary += "1000";
+            case "ls" -> binary += "1001";
+            case "ge" -> binary += "1010";
+            case "lt" -> binary += "1011";
+            case "gt" -> binary += "1100";
+            case "le" -> binary += "1101";
+            case "al" -> binary += "1110";
+            default -> {
+                binary += "1111";
+                System.out.println("Erreur potentiel SW conditional");
+            }
+        }
         int label = labels.get(LBB0_ + ":");
         int diff = label - instructionCount - 3;
         binary += intToBinary("" + diff, 8);
