@@ -39,6 +39,7 @@ public class Main {
         if (tmp.length > 2) {
             tmp[2] = tmp[2].trim()
                     .replaceAll("\\[sp, ", "")
+                    .replaceAll("\\[", "")
                     .replaceAll("]", "")
                     .replaceAll(",", "");
         }
