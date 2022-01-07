@@ -33,6 +33,7 @@
     </tool>
     <tool name="Ground">
       <a name="facing" val="west"/>
+      <a name="width" val="24"/>
     </tool>
     <tool name="Transistor">
       <a name="type" val="n"/>
@@ -54,6 +55,9 @@
     </tool>
   </lib>
   <lib desc="#Plexers" name="2">
+    <tool name="Multiplexer">
+      <a name="select" val="4"/>
+    </tool>
     <tool name="Decoder">
       <a name="select" val="3"/>
     </tool>
@@ -86,7 +90,11 @@
       <a name="width" val="32"/>
     </tool>
   </lib>
-  <lib desc="#Memory" name="4"/>
+  <lib desc="#Memory" name="4">
+    <tool name="Register">
+      <a name="width" val="32"/>
+    </tool>
+  </lib>
   <lib desc="#I/O" name="5">
     <tool name="DipSwitch">
       <a name="number" val="32"/>
@@ -162,13 +170,13 @@ end TCL_Generic;
   <lib desc="#BFH-Praktika" name="9"/>
   <lib desc="#Input/Output-Extra" name="10"/>
   <lib desc="#TTL" name="11"/>
-  <lib desc="file#ALU.circ" name="12">
+  <lib desc="file#Controller.circ" name="12"/>
+  <lib desc="file#BancDeRegistres.circ" name="13"/>
+  <lib desc="file#ALU.circ" name="14">
     <tool name="ALU">
       <a name="facing" val="east"/>
     </tool>
   </lib>
-  <lib desc="file#Controller.circ" name="13"/>
-  <lib desc="file#BancDeRegistres.circ" name="14"/>
   <main name="Facade"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
@@ -2425,14 +2433,14 @@ e7fd
       <a name="facing" val="east"/>
       <a name="label" val="Store"/>
     </comp>
-    <comp lib="12" loc="(600,770)" name="ALU">
-      <a name="label" val="ALU_1"/>
-    </comp>
-    <comp lib="13" loc="(300,240)" name="Controller">
+    <comp lib="12" loc="(300,240)" name="Controller">
       <a name="label" val="Controller_1"/>
     </comp>
-    <comp lib="14" loc="(790,200)" name="BancRegistre">
+    <comp lib="13" loc="(790,200)" name="BancRegistre">
       <a name="label" val="Regs_1"/>
+    </comp>
+    <comp lib="14" loc="(600,770)" name="ALU">
+      <a name="label" val="ALU_1"/>
     </comp>
     <comp lib="2" loc="(1020,450)" name="Multiplexer">
       <a name="enable" val="true"/>
@@ -2470,7 +2478,7 @@ e7fd
     <wire from="(1210,480)" to="(1240,480)"/>
     <wire from="(1210,560)" to="(1240,560)"/>
     <wire from="(130,180)" to="(130,240)"/>
-    <wire from="(150,840)" to="(990,840)"/>
+    <wire from="(150,840)" to="(900,840)"/>
     <wire from="(30,160)" to="(30,280)"/>
     <wire from="(30,280)" to="(130,280)"/>
     <wire from="(300,260)" to="(390,260)"/>
@@ -2525,6 +2533,9 @@ e7fd
     <wire from="(800,260)" to="(830,260)"/>
     <wire from="(820,230)" to="(820,240)"/>
     <wire from="(820,230)" to="(830,230)"/>
+    <wire from="(900,740)" to="(900,840)"/>
+    <wire from="(900,740)" to="(990,740)"/>
+    <wire from="(900,840)" to="(990,840)"/>
     <wire from="(940,420)" to="(940,500)"/>
     <wire from="(940,500)" to="(1000,500)"/>
     <wire from="(940,500)" to="(940,590)"/>
