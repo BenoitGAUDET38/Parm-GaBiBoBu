@@ -4,7 +4,6 @@
 
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
-      <a name="facing" val="north"/>
       <a name="fanout" val="4"/>
       <a name="incoming" val="1"/>
     </tool>
@@ -27,7 +26,6 @@
       <a name="facing" val="north"/>
     </tool>
     <tool name="Constant">
-      <a name="facing" val="south"/>
       <a name="value" val="0x0"/>
       <a name="width" val="2"/>
     </tool>
@@ -126,13 +124,13 @@ end TCL_Generic;
     </tool>
   </lib>
   <lib desc="#BFH-Praktika" name="9"/>
-  <lib desc="file#Ctl_SP_Address.circ" name="10"/>
-  <lib desc="file#Ctl_Load_Store.circ" name="11"/>
-  <lib desc="file#Ctl_Flags_APSR.circ" name="12"/>
-  <lib desc="file#Ctl_Data_Processing.circ" name="13"/>
-  <lib desc="file#Ctl_Conditional.circ" name="14"/>
-  <lib desc="file#Ctl_Opcode_Decoder.circ" name="15"/>
-  <lib desc="file#Ctl_Shift_Add_Sub_Mov.circ" name="16"/>
+  <lib desc="file#Ctl_Data_Processing.circ" name="10"/>
+  <lib desc="file#Ctl_Opcode_Decoder.circ" name="11"/>
+  <lib desc="file#Ctl_SP_Address.circ" name="12"/>
+  <lib desc="file#Ctl_Conditional.circ" name="13"/>
+  <lib desc="file#Ctl_Shift_Add_Sub_Mov.circ" name="14"/>
+  <lib desc="file#Ctl_Flags_APSR.circ" name="15"/>
+  <lib desc="file#Ctl_Load_Store.circ" name="16"/>
   <main name="Controller"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
@@ -430,13 +428,13 @@ end TCL_Generic;
       <a name="size" val="30"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="10" loc="(990,880)" name="SP_Address"/>
-    <comp lib="11" loc="(920,690)" name="Load_Store"/>
-    <comp lib="12" loc="(920,530)" name="Flags_APSR"/>
-    <comp lib="13" loc="(920,390)" name="Data_Processing"/>
-    <comp lib="14" loc="(900,1090)" name="Conditional"/>
-    <comp lib="15" loc="(520,240)" name="Opcode_Decoder"/>
-    <comp lib="16" loc="(920,210)" name="Shift_Add_Sub_Mov"/>
+    <comp lib="10" loc="(920,390)" name="Data_Processing"/>
+    <comp lib="11" loc="(520,240)" name="Opcode_Decoder"/>
+    <comp lib="12" loc="(990,880)" name="SP_Address"/>
+    <comp lib="13" loc="(900,1090)" name="Conditional"/>
+    <comp lib="14" loc="(920,210)" name="Shift_Add_Sub_Mov"/>
+    <comp lib="15" loc="(920,530)" name="Flags_APSR"/>
+    <comp lib="16" loc="(920,690)" name="Load_Store"/>
     <comp lib="2" loc="(1270,70)" name="Multiplexer"/>
     <comp lib="3" loc="(1000,1080)" name="Adder">
       <a name="width" val="16"/>
@@ -562,8 +560,10 @@ end TCL_Generic;
     <wire from="(250,240)" to="(300,240)"/>
     <wire from="(260,570)" to="(260,770)"/>
     <wire from="(260,570)" to="(710,570)"/>
-    <wire from="(260,770)" to="(340,770)"/>
+    <wire from="(260,770)" to="(280,770)"/>
     <wire from="(280,1250)" to="(1120,1250)"/>
+    <wire from="(280,770)" to="(280,840)"/>
+    <wire from="(280,770)" to="(340,770)"/>
     <wire from="(280,840)" to="(280,1250)"/>
     <wire from="(280,840)" to="(370,840)"/>
     <wire from="(310,60)" to="(1240,60)"/>
