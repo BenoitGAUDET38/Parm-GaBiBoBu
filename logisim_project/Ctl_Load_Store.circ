@@ -187,18 +187,14 @@ end TCL_Generic;
       <circ-port height="8" pin="200,70" width="8" x="46" y="56"/>
       <circ-port height="8" pin="390,110" width="8" x="46" y="76"/>
     </appear>
-    <comp lib="0" loc="(120,480)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="imm8"/>
-      <a name="width" val="8"/>
-    </comp>
-    <comp lib="0" loc="(130,500)" name="Constant">
-      <a name="value" val="0x2"/>
-      <a name="width" val="3"/>
-    </comp>
     <comp lib="0" loc="(150,670)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="label" val="PremierBit"/>
+    </comp>
+    <comp lib="0" loc="(180,490)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="imm8"/>
+      <a name="width" val="8"/>
     </comp>
     <comp lib="0" loc="(200,170)" name="Pin">
       <a name="appearance" val="classic"/>
@@ -236,6 +232,7 @@ end TCL_Generic;
     </comp>
     <comp lib="0" loc="(250,490)" name="Bit Extender">
       <a name="out_width" val="32"/>
+      <a name="type" val="zero"/>
     </comp>
     <comp lib="0" loc="(320,510)" name="Tunnel">
       <a name="facing" val="east"/>
@@ -401,7 +398,6 @@ end TCL_Generic;
       <a name="size" val="30"/>
     </comp>
     <comp lib="2" loc="(40,770)" name="Decoder"/>
-    <comp lib="3" loc="(190,490)" name="Shifter"/>
     <comp lib="3" loc="(370,500)" name="Adder">
       <a name="width" val="32"/>
     </comp>
@@ -414,10 +410,8 @@ end TCL_Generic;
     </comp>
     <wire from="(100,620)" to="(100,650)"/>
     <wire from="(100,650)" to="(150,650)"/>
-    <wire from="(120,480)" to="(150,480)"/>
-    <wire from="(130,500)" to="(150,500)"/>
     <wire from="(150,650)" to="(150,670)"/>
-    <wire from="(190,490)" to="(210,490)"/>
+    <wire from="(180,490)" to="(210,490)"/>
     <wire from="(200,170)" to="(230,170)"/>
     <wire from="(200,250)" to="(230,250)"/>
     <wire from="(200,360)" to="(230,360)"/>
