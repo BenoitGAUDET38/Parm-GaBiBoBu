@@ -330,7 +330,7 @@ end TCL_Generic;
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(400,270)" name="Constant">
-      <a name="value" val="0xd"/>
+      <a name="value" val="0xe"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(470,120)" name="Bit Extender">
@@ -527,7 +527,7 @@ end TCL_Generic;
     <wire from="(290,280)" to="(300,280)"/>
     <wire from="(300,270)" to="(300,280)"/>
     <wire from="(300,500)" to="(300,530)"/>
-    <wire from="(320,150)" to="(520,150)"/>
+    <wire from="(320,150)" to="(480,150)"/>
     <wire from="(320,160)" to="(380,160)"/>
     <wire from="(320,240)" to="(340,240)"/>
     <wire from="(320,250)" to="(350,250)"/>
@@ -546,13 +546,17 @@ end TCL_Generic;
     <wire from="(400,270)" to="(410,270)"/>
     <wire from="(450,260)" to="(510,260)"/>
     <wire from="(470,120)" to="(490,120)"/>
-    <wire from="(490,120)" to="(490,130)"/>
-    <wire from="(490,130)" to="(520,130)"/>
+    <wire from="(480,140)" to="(480,150)"/>
+    <wire from="(480,140)" to="(500,140)"/>
+    <wire from="(490,120)" to="(490,150)"/>
+    <wire from="(490,150)" to="(520,150)"/>
     <wire from="(50,340)" to="(90,340)"/>
     <wire from="(50,360)" to="(180,360)"/>
     <wire from="(50,380)" to="(110,380)"/>
     <wire from="(50,400)" to="(100,400)"/>
     <wire from="(50,480)" to="(280,480)"/>
+    <wire from="(500,130)" to="(500,140)"/>
+    <wire from="(500,130)" to="(520,130)"/>
     <wire from="(510,260)" to="(510,380)"/>
     <wire from="(510,380)" to="(530,380)"/>
     <wire from="(510,400)" to="(510,420)"/>
