@@ -224,12 +224,12 @@ end TCL_Generic;
     <comp lib="0" loc="(530,280)" name="Power">
       <a name="facing" val="west"/>
     </comp>
-    <comp lib="0" loc="(540,300)" name="Pin">
-      <a name="label" val="Rst"/>
-    </comp>
-    <comp lib="0" loc="(590,340)" name="Pin">
-      <a name="facing" val="north"/>
+    <comp lib="0" loc="(550,300)" name="Pin">
       <a name="label" val="Clk"/>
+    </comp>
+    <comp lib="0" loc="(590,330)" name="Pin">
+      <a name="facing" val="north"/>
+      <a name="label" val="Rst"/>
     </comp>
     <comp lib="0" loc="(650,220)" name="Tunnel">
       <a name="facing" val="south"/>
@@ -281,8 +281,8 @@ end TCL_Generic;
     <wire from="(380,270)" to="(400,270)"/>
     <wire from="(430,260)" to="(560,260)"/>
     <wire from="(530,280)" to="(560,280)"/>
-    <wire from="(540,300)" to="(560,300)"/>
-    <wire from="(590,320)" to="(590,340)"/>
+    <wire from="(550,300)" to="(560,300)"/>
+    <wire from="(590,320)" to="(590,330)"/>
     <wire from="(620,260)" to="(650,260)"/>
     <wire from="(650,220)" to="(650,260)"/>
     <wire from="(650,260)" to="(680,260)"/>
