@@ -4,8 +4,9 @@
 
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
-      <a name="fanout" val="4"/>
-      <a name="incoming" val="1"/>
+      <a name="facing" val="north"/>
+      <a name="fanout" val="8"/>
+      <a name="incoming" val="8"/>
     </tool>
     <tool name="Pin">
       <a name="appearance" val="classic"/>
@@ -27,10 +28,10 @@
     </tool>
     <tool name="Constant">
       <a name="value" val="0x0"/>
-      <a name="width" val="2"/>
     </tool>
     <tool name="Ground">
       <a name="facing" val="west"/>
+      <a name="width" val="24"/>
     </tool>
     <tool name="Transistor">
       <a name="type" val="n"/>
@@ -44,7 +45,7 @@
       <a name="size" val="30"/>
     </tool>
     <tool name="OR Gate">
-      <a name="inputs" val="4"/>
+      <a name="size" val="30"/>
     </tool>
     <tool name="XOR Gate">
       <a name="inputs" val="3"/>
@@ -62,7 +63,7 @@
   </lib>
   <lib desc="#Arithmetic" name="3">
     <tool name="Adder">
-      <a name="width" val="32"/>
+      <a name="width" val="16"/>
     </tool>
     <tool name="Subtractor">
       <a name="width" val="32"/>
@@ -2103,10 +2104,6 @@ e7fd
       <circ-port height="8" pin="30,160" width="8" x="46" y="76"/>
       <circ-port height="8" pin="70,160" width="8" x="46" y="56"/>
     </appear>
-    <comp lib="0" loc="(1000,680)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="Store"/>
-    </comp>
     <comp lib="0" loc="(1000,780)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="Load"/>
@@ -2444,23 +2441,16 @@ e7fd
       <a name="enable" val="true"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="2" loc="(1030,650)" name="Multiplexer">
-      <a name="enable" val="true"/>
-      <a name="width" val="32"/>
-    </comp>
     <comp lib="2" loc="(1030,750)" name="Multiplexer">
       <a name="enable" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <wire from="(1000,470)" to="(1000,480)"/>
-    <wire from="(1000,680)" to="(1010,680)"/>
     <wire from="(1000,780)" to="(1010,780)"/>
     <wire from="(1010,590)" to="(1010,600)"/>
-    <wire from="(1010,670)" to="(1010,680)"/>
     <wire from="(1010,770)" to="(1010,780)"/>
     <wire from="(1020,450)" to="(1030,450)"/>
     <wire from="(1030,570)" to="(1060,570)"/>
-    <wire from="(1030,650)" to="(1240,650)"/>
     <wire from="(1030,750)" to="(1060,750)"/>
     <wire from="(1210,280)" to="(1240,280)"/>
     <wire from="(1210,360)" to="(1240,360)"/>
@@ -2468,7 +2458,7 @@ e7fd
     <wire from="(1210,480)" to="(1240,480)"/>
     <wire from="(1210,560)" to="(1240,560)"/>
     <wire from="(130,180)" to="(130,240)"/>
-    <wire from="(160,760)" to="(910,760)"/>
+    <wire from="(160,760)" to="(1000,760)"/>
     <wire from="(30,160)" to="(30,280)"/>
     <wire from="(30,280)" to="(50,280)"/>
     <wire from="(300,260)" to="(390,260)"/>
@@ -2517,8 +2507,8 @@ e7fd
     <wire from="(770,460)" to="(770,470)"/>
     <wire from="(770,470)" to="(770,560)"/>
     <wire from="(770,560)" to="(1000,560)"/>
-    <wire from="(770,560)" to="(770,640)"/>
-    <wire from="(770,640)" to="(1000,640)"/>
+    <wire from="(770,560)" to="(770,650)"/>
+    <wire from="(770,650)" to="(1240,650)"/>
     <wire from="(790,450)" to="(970,450)"/>
     <wire from="(800,240)" to="(820,240)"/>
     <wire from="(800,260)" to="(830,260)"/>
@@ -2527,9 +2517,6 @@ e7fd
     <wire from="(90,230)" to="(90,260)"/>
     <wire from="(90,260)" to="(130,260)"/>
     <wire from="(900,580)" to="(1000,580)"/>
-    <wire from="(910,660)" to="(1000,660)"/>
-    <wire from="(910,660)" to="(910,760)"/>
-    <wire from="(910,760)" to="(1000,760)"/>
     <wire from="(960,440)" to="(960,460)"/>
     <wire from="(960,460)" to="(990,460)"/>
     <wire from="(970,440)" to="(970,450)"/>
