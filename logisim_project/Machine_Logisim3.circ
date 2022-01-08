@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project source="3.7.2" version="1.0">
-  This file is intended to be loaded by Logisim-evolution v3.7.2(https://github.com/logisim-evolution/).
+<project source="3.5.0" version="1.0">
+  This file is intended to be loaded by Logisim-evolution (https://github.com/reds-heig/logisim-evolution).
 
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
       <a name="facing" val="north"/>
-      <a name="fanout" val="8"/>
-      <a name="incoming" val="8"/>
+      <a name="fanout" val="4"/>
+      <a name="incoming" val="1"/>
     </tool>
     <tool name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
     </tool>
     <tool name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10unsigned"/>
     </tool>
@@ -27,7 +25,9 @@
       <a name="facing" val="north"/>
     </tool>
     <tool name="Constant">
+      <a name="facing" val="south"/>
       <a name="value" val="0x0"/>
+      <a name="width" val="2"/>
     </tool>
     <tool name="Ground">
       <a name="facing" val="west"/>
@@ -51,8 +51,17 @@
       <a name="inputs" val="3"/>
       <a name="size" val="30"/>
     </tool>
+    <tool name="PLA">
+      <a name="table" val=""/>
+    </tool>
   </lib>
   <lib desc="#Plexers" name="2">
+    <tool name="Multiplexer">
+      <a name="enable" val="false"/>
+    </tool>
+    <tool name="Demultiplexer">
+      <a name="enable" val="false"/>
+    </tool>
     <tool name="Decoder">
       <a name="select" val="3"/>
     </tool>
@@ -85,7 +94,41 @@
       <a name="width" val="32"/>
     </tool>
   </lib>
-  <lib desc="#Memory" name="4"/>
+  <lib desc="#Memory" name="4">
+    <tool name="D Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="T Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="J-K Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="S-R Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="Counter">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="Shift Register">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="Random">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="RAM">
+      <a name="appearance" val="logisim_evolution"/>
+    </tool>
+    <tool name="ROM">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="contents">addr/data: 8 8
+0
+</a>
+    </tool>
+  </lib>
   <lib desc="#I/O" name="5">
     <tool name="DipSwitch">
       <a name="number" val="32"/>
@@ -156,6 +199,9 @@ end TCL_Generic;
   <lib desc="#Base" name="8">
     <tool name="Text Tool">
       <a name="font" val="SansSerif plain 20"/>
+      <a name="halign" val="center"/>
+      <a name="text" val=""/>
+      <a name="valign" val="base"/>
     </tool>
   </lib>
   <lib desc="#BFH-Praktika" name="9"/>
@@ -184,10 +230,16 @@ end TCL_Generic;
     <tool lib="8" name="Edit Tool"/>
     <tool lib="8" name="Text Tool">
       <a name="font" val="SansSerif plain 20"/>
+      <a name="halign" val="center"/>
+      <a name="text" val=""/>
+      <a name="valign" val="base"/>
     </tool>
     <sep/>
-    <tool lib="0" name="Pin"/>
     <tool lib="0" name="Pin">
+      <a name="appearance" val="NewPins"/>
+    </tool>
+    <tool lib="0" name="Pin">
+      <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
     </tool>
@@ -198,9 +250,12 @@ end TCL_Generic;
   <circuit name="Facade">
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="Facade"/>
-    <a name="simulationFrequency" val="4.0"/>
+    <a name="circuitnamedboxfixedsize" val="false"/>
+    <a name="circuitvhdlpath" val=""/>
+    <a name="clabel" val=""/>
+    <a name="clabelfont" val="SansSerif bold 16"/>
+    <a name="clabelup" val="east"/>
     <comp lib="0" loc="(1010,220)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
     </comp>
     <comp lib="0" loc="(1020,300)" name="Tunnel">
@@ -277,7 +332,6 @@ end TCL_Generic;
       <a name="width" val="9"/>
     </comp>
     <comp lib="0" loc="(1120,290)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="16"/>
     </comp>
@@ -286,12 +340,10 @@ end TCL_Generic;
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(1120,360)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10signed"/>
     </comp>
     <comp lib="0" loc="(1120,410)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="16"/>
     </comp>
@@ -315,7 +367,6 @@ end TCL_Generic;
       <a name="label" val="Store"/>
     </comp>
     <comp lib="0" loc="(1230,160)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
@@ -419,12 +470,10 @@ end TCL_Generic;
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(190,1500)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
       <a name="radix" val="10unsigned"/>
     </comp>
     <comp lib="0" loc="(200,1000)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10unsigned"/>
     </comp>
@@ -483,7 +532,6 @@ end TCL_Generic;
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(280,130)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10unsigned"/>
     </comp>
@@ -612,7 +660,6 @@ end TCL_Generic;
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(310,1000)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10unsigned"/>
     </comp>
@@ -929,7 +976,6 @@ end TCL_Generic;
       <a name="label" val="Clk_Button2"/>
     </comp>
     <comp lib="0" loc="(570,320)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
       <a name="radix" val="10signed"/>
     </comp>
@@ -1241,7 +1287,6 @@ end TCL_Generic;
       <a name="incoming" val="32"/>
     </comp>
     <comp lib="0" loc="(750,320)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
       <a name="radix" val="16"/>
     </comp>
@@ -1329,7 +1374,6 @@ end TCL_Generic;
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(840,190)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
@@ -1348,7 +1392,6 @@ end TCL_Generic;
       <a name="label" val="RNG_Read"/>
     </comp>
     <comp lib="0" loc="(860,170)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
@@ -1357,12 +1400,10 @@ end TCL_Generic;
       <a name="label" val="Clk"/>
     </comp>
     <comp lib="0" loc="(880,150)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
     <comp lib="0" loc="(880,990)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10signed"/>
     </comp>
@@ -1441,7 +1482,6 @@ end TCL_Generic;
       <a name="incoming" val="32"/>
     </comp>
     <comp lib="0" loc="(90,1000)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10unsigned"/>
     </comp>
@@ -1450,7 +1490,6 @@ end TCL_Generic;
       <a name="label" val="KEYB_ReadEn"/>
     </comp>
     <comp lib="0" loc="(900,130)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
@@ -1470,7 +1509,6 @@ end TCL_Generic;
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(920,190)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
@@ -1478,7 +1516,6 @@ end TCL_Generic;
       <a name="label" val="Clk_Button2"/>
     </comp>
     <comp lib="0" loc="(940,170)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
@@ -1488,12 +1525,10 @@ end TCL_Generic;
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(960,150)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
     <comp lib="0" loc="(980,130)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="radix" val="16"/>
     </comp>
@@ -1542,7 +1577,6 @@ end TCL_Generic;
       <a name="selloc" val="tr"/>
     </comp>
     <comp lib="2" loc="(1170,1590)" name="Multiplexer">
-      <a name="enable" val="true"/>
       <a name="select" val="4"/>
       <a name="selloc" val="tr"/>
       <a name="width" val="32"/>
@@ -1552,7 +1586,6 @@ end TCL_Generic;
       <a name="selloc" val="tr"/>
     </comp>
     <comp lib="2" loc="(720,290)" name="Multiplexer">
-      <a name="enable" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="3" loc="(1170,170)" name="Multiplier">
@@ -1598,14 +1631,8 @@ end TCL_Generic;
       <a name="addrWidth" val="16"/>
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 16 16
-b095 b0ff b0f1 11*e7fe 2050 9005 e7fe e7fe
-2072 9005 e7fe e7fe e7fe 206f 9005 e7fe
-e7fe e7fe 206a 9005 e7fe e7fe e7fe 2065
-9005 e7fe e7fe e7fe 2074 9005 e7fe e7fe
-e7fe 2020 9005 e7fe e7fe e7fe 2050 9005
-e7fe e7fe e7fe 2041 9005 e7fe e7fe e7fe
-2052 9005 e7fe e7fe e7fe 204d 9005 4*e7fe
-e7fd
+2000 2101 22aa 23ff 54 855 1f46 1076
+1877
 </a>
       <a name="dataWidth" val="16"/>
       <a name="label" val="ROMa"/>
@@ -1623,19 +1650,23 @@ e7fd
     </comp>
     <comp lib="5" loc="(1100,1110)" name="TTY"/>
     <comp lib="5" loc="(130,1030)" name="DipSwitch">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@29b160c5"/>
       <a name="labelloc" val="south"/>
     </comp>
     <comp lib="5" loc="(140,1150)" name="Keyboard"/>
     <comp lib="5" loc="(20,1030)" name="DipSwitch">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@74e9b02a"/>
       <a name="labelloc" val="south"/>
     </comp>
     <comp lib="5" loc="(240,1030)" name="DipSwitch">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4c18fa43"/>
       <a name="labelloc" val="south"/>
     </comp>
     <comp lib="5" loc="(360,1120)" name="Joystick">
       <a name="bits" val="5"/>
     </comp>
     <comp lib="5" loc="(450,1010)" name="DotMatrix">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@5054a34d"/>
       <a name="inputtype" val="row"/>
       <a name="matrixcols" val="8"/>
       <a name="matrixrows" val="4"/>
@@ -1649,24 +1680,41 @@ e7fd
       <a name="label" val="Clk_Button"/>
       <a name="labelloc" val="east"/>
     </comp>
-    <comp lib="5" loc="(630,1110)" name="Hex Digit Display"/>
+    <comp lib="5" loc="(630,1110)" name="Hex Digit Display">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@724146ca"/>
+    </comp>
     <comp lib="5" loc="(670,1020)" name="DotMatrix">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4b10c048"/>
       <a name="inputtype" val="row"/>
       <a name="matrixcols" val="32"/>
       <a name="matrixrows" val="1"/>
     </comp>
-    <comp lib="5" loc="(670,1110)" name="Hex Digit Display"/>
-    <comp lib="5" loc="(710,1110)" name="Hex Digit Display"/>
-    <comp lib="5" loc="(750,1110)" name="Hex Digit Display"/>
+    <comp lib="5" loc="(670,1110)" name="Hex Digit Display">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4051e18b"/>
+    </comp>
+    <comp lib="5" loc="(710,1110)" name="Hex Digit Display">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@356a7c07"/>
+    </comp>
+    <comp lib="5" loc="(750,1110)" name="Hex Digit Display">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4d650b76"/>
+    </comp>
     <comp lib="5" loc="(770,910)" name="Button">
       <a name="facing" val="west"/>
       <a name="labelloc" val="east"/>
     </comp>
-    <comp lib="5" loc="(870,1110)" name="Hex Digit Display"/>
+    <comp lib="5" loc="(870,1110)" name="Hex Digit Display">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@ba8012"/>
+    </comp>
     <comp lib="5" loc="(890,910)" name="Button"/>
-    <comp lib="5" loc="(910,1110)" name="Hex Digit Display"/>
-    <comp lib="5" loc="(950,1110)" name="Hex Digit Display"/>
-    <comp lib="5" loc="(990,1110)" name="Hex Digit Display"/>
+    <comp lib="5" loc="(910,1110)" name="Hex Digit Display">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4fa86437"/>
+    </comp>
+    <comp lib="5" loc="(950,1110)" name="Hex Digit Display">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@29c4a381"/>
+    </comp>
+    <comp lib="5" loc="(990,1110)" name="Hex Digit Display">
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4c1f3374"/>
+    </comp>
     <comp lib="8" loc="(1231,132)" name="Text">
       <a name="font" val="SansSerif plain 20"/>
       <a name="text" val="PC effectif"/>
@@ -2051,8 +2099,31 @@ e7fd
   <circuit name="CPU">
     <a name="appearance" val="custom"/>
     <a name="circuit" val="CPU"/>
-    <a name="simulationFrequency" val="4.0"/>
+    <a name="circuitnamedboxfixedsize" val="false"/>
+    <a name="circuitvhdlpath" val=""/>
+    <a name="clabel" val=""/>
+    <a name="clabelfont" val="SansSerif bold 16"/>
+    <a name="clabelup" val="east"/>
     <appear>
+      <circ-anchor facing="east" height="6" width="6" x="247" y="57"/>
+      <circ-port height="10" pin="1240,280" width="10" x="245" y="55"/>
+      <circ-port height="10" pin="1240,360" width="10" x="245" y="75"/>
+      <circ-port height="10" pin="1240,430" width="10" x="245" y="115"/>
+      <circ-port height="10" pin="1240,480" width="10" x="245" y="35"/>
+      <circ-port height="10" pin="1240,560" width="10" x="245" y="135"/>
+      <circ-port height="10" pin="1240,650" width="10" x="245" y="95"/>
+      <circ-port height="10" pin="590,170" width="10" x="75" y="15"/>
+      <circ-port height="10" pin="610,150" width="10" x="95" y="15"/>
+      <circ-port height="10" pin="630,130" width="10" x="115" y="15"/>
+      <circ-port height="10" pin="650,110" width="10" x="135" y="15"/>
+      <circ-port height="10" pin="670,170" width="10" x="155" y="15"/>
+      <circ-port height="10" pin="690,150" width="10" x="175" y="15"/>
+      <circ-port height="10" pin="710,130" width="10" x="195" y="15"/>
+      <circ-port height="10" pin="730,110" width="10" x="215" y="15"/>
+      <circ-port height="8" pin="130,180" width="8" x="46" y="116"/>
+      <circ-port height="8" pin="160,760" width="8" x="46" y="96"/>
+      <circ-port height="8" pin="30,160" width="8" x="46" y="76"/>
+      <circ-port height="8" pin="70,160" width="8" x="46" y="56"/>
       <rect fill="none" height="150" stroke="#000000" stroke-width="2" width="180" x="60" y="20"/>
       <rect height="20" stroke="none" width="181" x="60" y="150"/>
       <rect height="3" stroke="none" width="10" x="50" y="119"/>
@@ -2084,25 +2155,6 @@ e7fd
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="216" y="118">Store</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="220" y="28">R7</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="80" y="28">R0</text>
-      <circ-anchor facing="east" height="6" width="6" x="247" y="57"/>
-      <circ-port height="10" pin="1240,280" width="10" x="245" y="55"/>
-      <circ-port height="10" pin="1240,360" width="10" x="245" y="75"/>
-      <circ-port height="10" pin="1240,430" width="10" x="245" y="115"/>
-      <circ-port height="10" pin="1240,480" width="10" x="245" y="35"/>
-      <circ-port height="10" pin="1240,560" width="10" x="245" y="135"/>
-      <circ-port height="10" pin="1240,650" width="10" x="245" y="95"/>
-      <circ-port height="10" pin="590,170" width="10" x="75" y="15"/>
-      <circ-port height="10" pin="610,150" width="10" x="95" y="15"/>
-      <circ-port height="10" pin="630,130" width="10" x="115" y="15"/>
-      <circ-port height="10" pin="650,110" width="10" x="135" y="15"/>
-      <circ-port height="10" pin="670,170" width="10" x="155" y="15"/>
-      <circ-port height="10" pin="690,150" width="10" x="175" y="15"/>
-      <circ-port height="10" pin="710,130" width="10" x="195" y="15"/>
-      <circ-port height="10" pin="730,110" width="10" x="215" y="15"/>
-      <circ-port height="8" pin="130,180" width="8" x="46" y="116"/>
-      <circ-port height="8" pin="160,760" width="8" x="46" y="96"/>
-      <circ-port height="8" pin="30,160" width="8" x="46" y="76"/>
-      <circ-port height="8" pin="70,160" width="8" x="46" y="56"/>
     </appear>
     <comp lib="0" loc="(1000,780)" name="Tunnel">
       <a name="facing" val="east"/>
@@ -2145,59 +2197,50 @@ e7fd
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(1240,280)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="ROM_Addr"/>
       <a name="output" val="true"/>
       <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(1240,360)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="RAM_Addr"/>
       <a name="output" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(1240,430)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="Store"/>
       <a name="output" val="true"/>
     </comp>
     <comp lib="0" loc="(1240,480)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="Flags"/>
       <a name="output" val="true"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(1240,560)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="SP"/>
       <a name="output" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(1240,650)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="RAM_Out"/>
       <a name="output" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(130,180)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="ROM_In"/>
       <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(160,760)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="label" val="RAM_In"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(30,160)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="Reset"/>
     </comp>
@@ -2273,7 +2316,6 @@ e7fd
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(590,170)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="R0"/>
       <a name="output" val="true"/>
@@ -2290,7 +2332,6 @@ e7fd
       <a name="label" val="Rst"/>
     </comp>
     <comp lib="0" loc="(610,150)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="R1"/>
       <a name="output" val="true"/>
@@ -2298,7 +2339,6 @@ e7fd
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(630,130)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="R2"/>
       <a name="output" val="true"/>
@@ -2311,7 +2351,6 @@ e7fd
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(650,110)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="R3"/>
       <a name="output" val="true"/>
@@ -2319,7 +2358,6 @@ e7fd
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(670,170)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="R4"/>
       <a name="output" val="true"/>
@@ -2327,7 +2365,6 @@ e7fd
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(690,150)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="R5"/>
       <a name="output" val="true"/>
@@ -2335,12 +2372,10 @@ e7fd
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(70,160)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="Clk"/>
     </comp>
     <comp lib="0" loc="(710,130)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="R6"/>
       <a name="output" val="true"/>
@@ -2348,7 +2383,6 @@ e7fd
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(730,110)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
       <a name="label" val="R7"/>
       <a name="output" val="true"/>
@@ -2434,15 +2468,12 @@ e7fd
       <a name="label" val="Controller_1"/>
     </comp>
     <comp lib="2" loc="(1020,450)" name="Multiplexer">
-      <a name="enable" val="true"/>
       <a name="width" val="5"/>
     </comp>
     <comp lib="2" loc="(1030,570)" name="Multiplexer">
-      <a name="enable" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="2" loc="(1030,750)" name="Multiplexer">
-      <a name="enable" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <wire from="(1000,470)" to="(1000,480)"/>
@@ -2528,7 +2559,14 @@ e7fd
     <a name="appearance" val="custom"/>
     <a name="circuit" val="BCD8digits"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="circuitvhdlpath" val=""/>
+    <a name="clabel" val=""/>
+    <a name="clabelfont" val="SansSerif bold 16"/>
+    <a name="clabelup" val="east"/>
     <appear>
+      <circ-anchor facing="east" height="6" width="6" x="207" y="57"/>
+      <circ-port height="10" pin="910,230" width="10" x="205" y="55"/>
+      <circ-port height="8" pin="190,90" width="8" x="46" y="56"/>
       <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="140" x="60" y="50"/>
       <rect height="20" stroke="none" width="140" x="60" y="70"/>
       <rect height="4" stroke="none" width="10" x="200" y="58"/>
@@ -2536,12 +2574,8 @@ e7fd
       <text dominant-baseline="central" fill="#404040" font-family="Dialog" font-size="12" text-anchor="end" x="197" y="64">BCD</text>
       <text dominant-baseline="central" fill="#404040" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="64">Number</text>
       <text dominant-baseline="central" fill="#ffffff" font-family="Dialog" font-size="14" font-weight="bold" text-anchor="middle" x="133" y="85">BCD8digits</text>
-      <circ-anchor facing="east" height="6" width="6" x="207" y="57"/>
-      <circ-port height="10" pin="910,230" width="10" x="205" y="55"/>
-      <circ-port height="8" pin="190,90" width="8" x="46" y="56"/>
     </appear>
     <comp lib="0" loc="(190,90)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="label" val="Number"/>
       <a name="width" val="32"/>
     </comp>
@@ -2882,14 +2916,12 @@ e7fd
       <a name="incoming" val="32"/>
     </comp>
     <comp lib="0" loc="(910,230)" name="Pin">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="BCD"/>
       <a name="output" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(920,160)" name="Probe">
-      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="16"/>
     </comp>
