@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project source="3.5.0" version="1.0">
-  This file is intended to be loaded by Logisim-evolution (https://github.com/reds-heig/logisim-evolution).
+<project source="3.7.2" version="1.0">
+  This file is intended to be loaded by Logisim-evolution v3.7.2(https://github.com/logisim-evolution/).
 
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
@@ -9,9 +9,11 @@
       <a name="incoming" val="1"/>
     </tool>
     <tool name="Pin">
+      <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
     </tool>
     <tool name="Probe">
+      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="radix" val="10unsigned"/>
     </tool>
@@ -47,54 +49,10 @@
     <tool name="OR Gate">
       <a name="size" val="30"/>
     </tool>
-    <tool name="PLA">
-      <a name="table" val=""/>
-    </tool>
   </lib>
-  <lib desc="#Plexers" name="2">
-    <tool name="Multiplexer">
-      <a name="enable" val="false"/>
-    </tool>
-    <tool name="Demultiplexer">
-      <a name="enable" val="false"/>
-    </tool>
-  </lib>
+  <lib desc="#Plexers" name="2"/>
   <lib desc="#Arithmetic" name="3"/>
-  <lib desc="#Memory" name="4">
-    <tool name="D Flip-Flop">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="T Flip-Flop">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="J-K Flip-Flop">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="S-R Flip-Flop">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="Register">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="Counter">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="Shift Register">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="Random">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="RAM">
-      <a name="appearance" val="logisim_evolution"/>
-    </tool>
-    <tool name="ROM">
-      <a name="appearance" val="logisim_evolution"/>
-      <a name="contents">addr/data: 8 8
-0
-</a>
-    </tool>
-  </lib>
+  <lib desc="#Memory" name="4"/>
   <lib desc="#I/O" name="5"/>
   <lib desc="#HDL-IP" name="6">
     <tool name="VHDL Entity">
@@ -161,9 +119,6 @@ end TCL_Generic;
   <lib desc="#Base" name="8">
     <tool name="Text Tool">
       <a name="font" val="SansSerif plain 12"/>
-      <a name="halign" val="center"/>
-      <a name="text" val=""/>
-      <a name="valign" val="base"/>
     </tool>
   </lib>
   <lib desc="#BFH-Praktika" name="9"/>
@@ -183,16 +138,10 @@ end TCL_Generic;
     <tool lib="8" name="Edit Tool"/>
     <tool lib="8" name="Text Tool">
       <a name="font" val="SansSerif plain 12"/>
-      <a name="halign" val="center"/>
-      <a name="text" val=""/>
-      <a name="valign" val="base"/>
     </tool>
     <sep/>
+    <tool lib="0" name="Pin"/>
     <tool lib="0" name="Pin">
-      <a name="appearance" val="NewPins"/>
-    </tool>
-    <tool lib="0" name="Pin">
-      <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
     </tool>
@@ -203,16 +152,14 @@ end TCL_Generic;
   <circuit name="Flags_APSR">
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="Flags_APSR"/>
-    <a name="circuitnamedboxfixedsize" val="false"/>
-    <a name="circuitvhdlpath" val=""/>
-    <a name="clabel" val=""/>
-    <a name="clabelfont" val="SansSerif bold 16"/>
-    <a name="clabelup" val="east"/>
+    <a name="simulationFrequency" val="4.0"/>
     <comp lib="0" loc="(230,180)" name="Pin">
+      <a name="appearance" val="classic"/>
       <a name="label" val="Update_Mask"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(230,240)" name="Pin">
+      <a name="appearance" val="classic"/>
       <a name="label" val="Flags_In"/>
       <a name="width" val="4"/>
     </comp>
@@ -225,9 +172,11 @@ end TCL_Generic;
       <a name="facing" val="west"/>
     </comp>
     <comp lib="0" loc="(550,300)" name="Pin">
+      <a name="appearance" val="classic"/>
       <a name="label" val="Clk"/>
     </comp>
     <comp lib="0" loc="(590,330)" name="Pin">
+      <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
       <a name="label" val="Rst"/>
     </comp>
@@ -237,13 +186,10 @@ end TCL_Generic;
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(680,260)" name="Pin">
+      <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="Flags_Out"/>
       <a name="output" val="true"/>
-      <a name="width" val="4"/>
-    </comp>
-    <comp lib="1" loc="(310,290)" name="NOT Gate">
-      <a name="size" val="20"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="1" loc="(360,210)" name="AND Gate">
@@ -251,6 +197,7 @@ end TCL_Generic;
       <a name="width" val="4"/>
     </comp>
     <comp lib="1" loc="(360,300)" name="AND Gate">
+      <a name="negate0" val="true"/>
       <a name="size" val="30"/>
       <a name="width" val="4"/>
     </comp>
@@ -267,12 +214,11 @@ end TCL_Generic;
     <wire from="(240,310)" to="(330,310)"/>
     <wire from="(260,180)" to="(260,290)"/>
     <wire from="(260,180)" to="(310,180)"/>
-    <wire from="(260,290)" to="(290,290)"/>
+    <wire from="(260,290)" to="(320,290)"/>
     <wire from="(310,180)" to="(310,200)"/>
     <wire from="(310,200)" to="(330,200)"/>
     <wire from="(310,220)" to="(310,240)"/>
     <wire from="(310,220)" to="(330,220)"/>
-    <wire from="(310,290)" to="(330,290)"/>
     <wire from="(360,210)" to="(380,210)"/>
     <wire from="(360,300)" to="(380,300)"/>
     <wire from="(380,210)" to="(380,250)"/>
